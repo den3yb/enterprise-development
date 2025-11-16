@@ -1,0 +1,33 @@
+name: CI — build & tests
+
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches: 
+      - main
+  push:
+    branches:
+      - lab1
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Aviacompany
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Build solution
+        run: dotnet build AviaCompany.sln --no-restore
+
+      - name: Run tests
+        run: dotnet test AviaCompany.UnitTests/AviaCompany.UnitTests.csproj --no-build --verbosity detailed
