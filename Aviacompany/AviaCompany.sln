@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviaCompany.Domain", "AviaCompany.Domain\AviaCompany.Domain.csproj", "{EF6F2E49-737A-421F-A316-3E8FB31B50AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviaCompany.UnitTests", "AviaCompany.UnitTests\AviaCompany.UnitTests.csproj", "{584EE5D0-7597-48FE-8A65-68495FDACA30}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF6F2E49-737A-421F-A316-3E8FB31B50AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF6F2E49-737A-421F-A316-3E8FB31B50AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF6F2E49-737A-421F-A316-3E8FB31B50AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF6F2E49-737A-421F-A316-3E8FB31B50AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{584EE5D0-7597-48FE-8A65-68495FDACA30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{584EE5D0-7597-48FE-8A65-68495FDACA30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{584EE5D0-7597-48FE-8A65-68495FDACA30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{584EE5D0-7597-48FE-8A65-68495FDACA30}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
