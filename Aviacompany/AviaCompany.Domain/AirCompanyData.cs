@@ -81,16 +81,16 @@ public static class TestDataGenerator
     {
         return new List<Passenger>
         {
-            new Passenger { Id = 1, PassportNumber = "AB123456", FullName = "Ivanov Ivan Ivanovich", BirthDate = new DateTime(1985, 5, 15) },
-            new Passenger { Id = 2, PassportNumber = "CD654321", FullName = "Petrov Petr Petrovich", BirthDate = new DateTime(1990, 8, 20) },
-            new Passenger { Id = 3, PassportNumber = "EF789012", FullName = "Sidorova Anna Sergeevna", BirthDate = new DateTime(1988, 3, 10) },
-            new Passenger { Id = 4, PassportNumber = "GH345678", FullName = "Kozlov Dmitry Viktorovich", BirthDate = new DateTime(1992, 11, 5) },
-            new Passenger { Id = 5, PassportNumber = "IJ901234", FullName = "Nikolaeva Elena Olegovna", BirthDate = new DateTime(1987, 7, 25) },
-            new Passenger { Id = 6, PassportNumber = "KL567890", FullName = "Morozov Andrey Alexandrovich", BirthDate = new DateTime(1995, 2, 14) },
-            new Passenger { Id = 7, PassportNumber = "MN123789", FullName = "Pavlova Maria Igorevna", BirthDate = new DateTime(1991, 9, 30) },
-            new Passenger { Id = 8, PassportNumber = "OP456123", FullName = "Volkov Sergey Pavlovich", BirthDate = new DateTime(1983, 12, 8) },
-            new Passenger { Id = 9, PassportNumber = "QR789456", FullName = "Fedorova Olga Dmitrievna", BirthDate = new DateTime(1993, 4, 18) },
-            new Passenger { Id = 10, PassportNumber = "ST012345", FullName = "Borisov Alexey Nikolaevich", BirthDate = new DateTime(1989, 6, 22) }
+            new Passenger { Id = 1, PassportNumber = "AB123456", FullName = "Ivanov Ivan Ivanovich", BirthDate = new DateOnly(1985, 5, 15) },
+            new Passenger { Id = 2, PassportNumber = "CD654321", FullName = "Petrov Petr Petrovich", BirthDate = new DateOnly(1990, 8, 20) },
+            new Passenger { Id = 3, PassportNumber = "EF789012", FullName = "Sidorova Anna Sergeevna", BirthDate = new DateOnly(1988, 3, 10) },
+            new Passenger { Id = 4, PassportNumber = "GH345678", FullName = "Kozlov Dmitry Viktorovich", BirthDate = new DateOnly(1992, 11, 5) },
+            new Passenger { Id = 5, PassportNumber = "IJ901234", FullName = "Nikolaeva Elena Olegovna", BirthDate = new DateOnly(1987, 7, 25) },
+            new Passenger { Id = 6, PassportNumber = "KL567890", FullName = "Morozov Andrey Alexandrovich", BirthDate = new DateOnly(1995, 2, 14) },
+            new Passenger { Id = 7, PassportNumber = "MN123789", FullName = "Pavlova Maria Igorevna", BirthDate = new DateOnly(1991, 9, 30) },
+            new Passenger { Id = 8, PassportNumber = "OP456123", FullName = "Volkov Sergey Pavlovich", BirthDate = new DateOnly(1983, 12, 8) },
+            new Passenger { Id = 9, PassportNumber = "QR789456", FullName = "Fedorova Olga Dmitrievna", BirthDate = new DateOnly(1993, 4, 18) },
+            new Passenger { Id = 10, PassportNumber = "ST012345", FullName = "Borisov Alexey Nikolaevich", BirthDate = new DateOnly(1989, 6, 22) }
         };
     }
 
