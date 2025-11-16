@@ -26,6 +26,9 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: dotnet restore
+        run: dotnet restore AviaCompany.sln
+
       - name: Build solution
         run: dotnet build AviaCompany.sln --no-restore
 
