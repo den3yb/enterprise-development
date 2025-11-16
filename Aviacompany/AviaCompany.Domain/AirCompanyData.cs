@@ -1,7 +1,9 @@
 namespace AviaCompany.Domain;
 
+/// <summary>Генератор тестовых данных для системы авиакомпании</summary>
 public static class TestDataGenerator
 {
+    /// <summary>Генерирует список семейств самолетов</summary>
     public static List<AircraftFamily> GenerateAircraftFamilies()
     {
         return new List<AircraftFamily>
@@ -19,6 +21,7 @@ public static class TestDataGenerator
         };
     }
 
+    /// <summary>Генерирует список моделей самолетов на основе семейств</summary>
     public static List<AircraftModel> GenerateAircraftModels(List<AircraftFamily> families)
     {
         var family1 = families[0];
@@ -47,6 +50,7 @@ public static class TestDataGenerator
         };
     }
 
+    /// <summary>Генерирует список рейсов на основе моделей самолетов</summary>
     public static List<Flight> GenerateFlights(List<AircraftModel> models)
     {
         var model1 = models[0];
@@ -77,6 +81,7 @@ public static class TestDataGenerator
         };
     }
 
+    /// <summary>Генерирует список пассажиров</summary>
     public static List<Passenger> GeneratePassengers()
     {
         return new List<Passenger>
@@ -94,6 +99,7 @@ public static class TestDataGenerator
         };
     }
 
+    /// <summary>Генерирует список билетов на основе рейсов и пассажиров</summary>
     public static List<Ticket> GenerateTicket(List<Flight> flights, List<Passenger> passengers)
     {
         var flight1 = flights[0];
