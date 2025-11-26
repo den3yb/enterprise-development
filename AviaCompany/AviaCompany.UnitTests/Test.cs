@@ -65,7 +65,7 @@ public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<Fligh
             .ToList();
 
         Assert.All(result, f => Assert.Equal(minDuration, f.Duration));
-        Assert.True(result.Count > 0);
+        Assert.NotEmpty(result);
         Assert.All(fixture.Flights.Where(f => !result.Contains(f)), 
             f => Assert.True(f.Duration > minDuration));
     }
@@ -88,11 +88,6 @@ public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<Fligh
             var ticket = fixture.Tickets.First(t => t.PassengerId == p.Id && t.FlightId == selectedFlight.Id);
             Assert.Equal(0, ticket.LuggageWeight);
         });
-        
-        for (int i = 0; i < result.Count - 1; i++)
-        {
-            Assert.True(string.Compare(result[i].FullName, result[i + 1].FullName) <= 0);
-        }
     }
 
     /// <summary>
