@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - lab1
+      - main
 
 jobs:
   build-and-test:

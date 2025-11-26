@@ -16,11 +16,11 @@ public class FlightQueriesTests
 
     public FlightQueriesTests()
     {
-        _families = TestDataGenerator.GenerateAircraftFamilies();
-        _models = TestDataGenerator.GenerateAircraftModels(_families);
-        _flights = TestDataGenerator.GenerateFlights(_models);
-        _passengers = TestDataGenerator.GeneratePassengers();
-        _tickets = TestDataGenerator.GenerateTicket(_flights, _passengers);
+        _families = DataGenerator.GenerateAircraftFamilies();
+        _models = DataGenerator.GenerateAircraftModels(_families);
+        _flights = DataGenerator.GenerateFlights(_models);
+        _passengers = DataGenerator.GeneratePassengers();
+        _tickets = DataGenerator.GenerateTicket(_flights, _passengers);
     }
 
      /// <summary>

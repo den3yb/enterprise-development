@@ -3,7 +3,7 @@ namespace AviaCompany.Domain;
 /// <summary>
 /// Генератор тестовых данных для системы авиакомпании
 /// </summary>
-public static class TestDataGenerator
+public static class DataGenerator
 {
     /// <summary>
     /// Генерирует список семейств самолетов
