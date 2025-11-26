@@ -39,11 +39,6 @@ public class Flight
     public required DateTime ArrivalDate { get; set; }
 
     /// <summary>
-    /// Время вылета
-    /// </summary>
-    public required TimeSpan DepartureTime { get; set; }
-
-    /// <summary>
     /// Продолжительность полета
     /// </summary>
     public required TimeSpan Duration { get; set; }
