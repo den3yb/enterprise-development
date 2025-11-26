@@ -28,5 +28,5 @@ public class Passenger
      /// <summary>
      /// Билеты пассажира
      /// </summary>
-    public List<Ticket> Ticket { get; set; } = [];
+    public required List<Ticket> Ticket { get; set; } = [];
 }
