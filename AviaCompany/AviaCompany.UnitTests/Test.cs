@@ -4,36 +4,43 @@ using Xunit;
 namespace AviaCompany.UnitTests;
 
 /// <summary>
+/// Fixture с данными для теста
+/// </summary>
+public class FlightDataFixture
+{
+    public List<AircraftFamily> Families { get; }
+    public List<AircraftModel> Models { get; }
+    public List<Flight> Flights { get; }
+    public List<Passenger> Passengers { get; }
+    public List<Ticket> Tickets { get; }
+
+    public FlightDataFixture()
+    {
+        Families = DataGenerator.GenerateAircraftFamilies();
+        Models = DataGenerator.GenerateAircraftModels(Families);
+        Flights = DataGenerator.GenerateFlights(Models);
+        Passengers = DataGenerator.GeneratePassengers();
+        Tickets = DataGenerator.GenerateTicket(Flights, Passengers);
+    }
+}
+
+/// <summary>
 /// Тесты для проверки запросов к данным о рейсах
 /// </summary>
-public class FlightQueriesTests
+public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<FlightDataFixture>
 {
-    private readonly List<AircraftFamily> _families;
-    private readonly List<AircraftModel> _models;
-    private readonly List<Flight> _flights;
-    private readonly List<Passenger> _passengers;
-    private readonly List<Ticket> _tickets;
 
-    public FlightQueriesTests()
-    {
-        _families = DataGenerator.GenerateAircraftFamilies();
-        _models = DataGenerator.GenerateAircraftModels(_families);
-        _flights = DataGenerator.GenerateFlights(_models);
-        _passengers = DataGenerator.GeneratePassengers();
-        _tickets = DataGenerator.GenerateTicket(_flights, _passengers);
-    }
-
-     /// <summary>
-     /// Проверка получения топ-5 рейсов по количеству пассажиров
-     /// </summary>
+    /// <summary>
+    /// Проверка получения топ-5 рейсов по количеству пассажиров
+    /// </summary>
     [Fact]
     public void Top5FlightsByPassengerCount_ShouldReturnCorrectResults()
     {
-        var result = _tickets
+        var result = fixture.Tickets
             .GroupBy(t => t.FlightId)
             .Select(g => new
             {
-                Flight = _flights.First(f => f.Id == g.Key),
+                Flight = fixture.Flights.First(f => f.Id == g.Key),
                 PassengerCount = g.Count()
             })
             .OrderByDescending(x => x.PassengerCount)
@@ -41,12 +48,10 @@ public class FlightQueriesTests
             .ToList();
 
         Assert.Equal(5, result.Count);
-
         Assert.True(result[0].PassengerCount >= result[1].PassengerCount);
         Assert.True(result[1].PassengerCount >= result[2].PassengerCount);
         Assert.True(result[2].PassengerCount >= result[3].PassengerCount);
         Assert.True(result[3].PassengerCount >= result[4].PassengerCount);
-        
         Assert.All(result, r => Assert.NotNull(r.Flight));
     }
 
@@ -56,27 +61,25 @@ public class FlightQueriesTests
     [Fact]
     public void FlightsWithMinDuration_ShouldReturnCorrectResults()
     {
-        var minDuration = _flights.Min(f => f.Duration);
-
-        var result = _flights
+        var minDuration = fixture.Flights.Min(f => f.Duration);
+        var result = fixture.Flights
             .Where(f => f.Duration == minDuration)
             .ToList();
 
         Assert.All(result, f => Assert.Equal(minDuration, f.Duration));
         Assert.True(result.Count > 0);
-        Assert.All(_flights.Where(f => !result.Contains(f)), 
+        Assert.All(fixture.Flights.Where(f => !result.Contains(f)), 
             f => Assert.True(f.Duration > minDuration));
     }
 
     /// <summary>
     /// Проверка получения пассажиров без багажа на выбранном рейсе
-    /// </summary
+    /// </summary>
     [Fact]
     public void PassengersWithZeroLuggageOnSelectedFlight_ShouldReturnCorrectResults()
     {
-        var selectedFlight = _flights[0];
-
-        var result = _tickets
+        var selectedFlight = fixture.Flights[0];
+        var result = fixture.Tickets
             .Where(t => t.FlightId == selectedFlight.Id && t.LuggageWeight == 0)
             .Select(t => t.Passenger)
             .OrderBy(p => p.FullName)
@@ -84,7 +87,7 @@ public class FlightQueriesTests
 
         Assert.All(result, p => 
         {
-            var ticket = _tickets.First(t => t.PassengerId == p.Id && t.FlightId == selectedFlight.Id);
+            var ticket = fixture.Tickets.First(t => t.PassengerId == p.Id && t.FlightId == selectedFlight.Id);
             Assert.Equal(0, ticket.LuggageWeight);
         });
         
@@ -100,11 +103,11 @@ public class FlightQueriesTests
     [Fact]
     public void FlightsByAircraftModelAndTimePeriod_ShouldReturnCorrectResults()
     {
-        var selectedModel = _models[0];
+        var selectedModel = fixture.Models[0];
         var startDate = new DateTime(2024, 1, 14);
         var endDate = new DateTime(2024, 1, 16);
 
-        var result = _flights
+        var result = fixture.Flights
             .Where(f => f.AircraftModelId == selectedModel.Id &&
                        f.DepartureDate >= startDate &&
                        f.DepartureDate <= endDate)
@@ -122,7 +125,7 @@ public class FlightQueriesTests
 
         Assert.All(result, f => 
         {
-            Assert.Equal(selectedModel.Id, _flights.First(fl => fl.Code == f.FlightCode).AircraftModelId);
+            Assert.Equal(selectedModel.Id, fixture.Flights.First(fl => fl.Code == f.FlightCode).AircraftModelId);
             Assert.True(f.DepartureDate >= startDate);
             Assert.True(f.DepartureDate <= endDate);
         });
@@ -137,7 +140,7 @@ public class FlightQueriesTests
         var departurePoint = "Moscow";
         var arrivalPoint = "St. Petersburg";
 
-        var result = _flights
+        var result = fixture.Flights
             .Where(f => f.DeparturePoint == departurePoint && f.ArrivalPoint == arrivalPoint)
             .ToList();
 

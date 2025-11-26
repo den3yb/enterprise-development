@@ -43,5 +43,5 @@ public class Ticket
     /// <summary>
     /// Пассажир
     /// </summary>
-    public required Passenger Passenger { get; set; }
+    public Passenger Passenger { get; set; }
 }
