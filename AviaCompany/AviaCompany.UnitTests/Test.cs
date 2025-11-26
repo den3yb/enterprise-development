@@ -48,9 +48,8 @@ public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<Fligh
             .ToList();
 
         Assert.Equal(5, result.Count);
-        for (var i = 0; i < result.Count - 1 ; i++){
-             Assert.True(result[i].PassengerCount >= result[i+1].PassengerCount);
-        }
+        var isOrdered = result.SequenceEqual(result.OrderByDescending(x => x.PassengerCount));
+        Assert.True(isOrdered, "Рейсы должны быть отсортированы по убыванию количества пассажиров");
         Assert.All(result, r => Assert.NotNull(r.Flight));
     }
 
