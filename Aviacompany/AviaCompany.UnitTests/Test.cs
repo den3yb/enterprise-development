@@ -3,7 +3,9 @@ using Xunit;
 
 namespace AviaCompany.UnitTests;
 
-/// <summary>Тесты для проверки запросов к данным о рейсах</summary>
+/// <summary>
+/// Тесты для проверки запросов к данным о рейсах
+/// </summary>
 public class FlightQueriesTests
 {
     private readonly List<AircraftFamily> _families;
@@ -21,7 +23,9 @@ public class FlightQueriesTests
         _tickets = TestDataGenerator.GenerateTicket(_flights, _passengers);
     }
 
-     /// <summary>Проверка получения топ-5 рейсов по количеству пассажиров</summary>
+     /// <summary>
+     /// Проверка получения топ-5 рейсов по количеству пассажиров
+     /// </summary>
     [Fact]
     public void Top5FlightsByPassengerCount_ShouldReturnCorrectResults()
     {
@@ -46,7 +50,9 @@ public class FlightQueriesTests
         Assert.All(result, r => Assert.NotNull(r.Flight));
     }
 
-    /// <summary>Проверка получения рейсов с минимальной продолжительностью</summary>
+    /// <summary>
+    /// Проверка получения рейсов с минимальной продолжительностью
+    /// </summary>
     [Fact]
     public void FlightsWithMinDuration_ShouldReturnCorrectResults()
     {
@@ -62,7 +68,9 @@ public class FlightQueriesTests
             f => Assert.True(f.Duration > minDuration));
     }
 
-    /// <summary>Проверка получения пассажиров без багажа на выбранном рейсе</summary
+    /// <summary>
+    /// Проверка получения пассажиров без багажа на выбранном рейсе
+    /// </summary
     [Fact]
     public void PassengersWithZeroLuggageOnSelectedFlight_ShouldReturnCorrectResults()
     {
@@ -86,7 +94,9 @@ public class FlightQueriesTests
         }
     }
 
-    /// <summary>Проверка фильтрации рейсов по модели самолета и периоду времени</summary>
+    /// <summary>
+    /// Проверка фильтрации рейсов по модели самолета и периоду времени
+    /// </summary>
     [Fact]
     public void FlightsByAircraftModelAndTimePeriod_ShouldReturnCorrectResults()
     {
@@ -118,7 +128,9 @@ public class FlightQueriesTests
         });
     }
 
-    /// <summary>Проверка поиска рейсов по пункту вылета и назначения</summary>
+    /// <summary>
+    /// Проверка поиска рейсов по пункту вылета и назначения
+    /// </summary>
     [Fact]
     public void FlightsByDepartureAndArrivalPoints_ShouldReturnCorrectResults()
     {

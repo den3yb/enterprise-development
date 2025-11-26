@@ -1,20 +1,32 @@
 namespace AviaCompany.Domain;
 
-/// <summary>Пассажир</summary>
+/// <summary>
+/// Пассажир
+/// </summary>
 public class Passenger
 {
-    /// <summary>Уникальный идентификатор</summary>
+    /// <summary>
+    /// Уникальный идентификатор
+    /// </summary>
     public int Id { get; set; }
 
-    /// <summary>Номер паспорта</summary>
+    /// <summary>
+    /// Номер паспорта
+    /// </summary>
     public required string PassportNumber { get; set; }
 
-    /// <summary>Полное имя</summary>
+    /// <summary>
+    /// Полное имя
+    /// </summary>
     public required string FullName { get; set; }
 
-    /// <summary>Дата рождения</summary>
+    /// <summary>
+    /// Дата рождения
+    /// </summary>
     public required DateOnly BirthDate { get; set; }
     
-     /// <summary>Билеты пассажира</summary>
+     /// <summary>
+     /// Билеты пассажира
+     /// </summary>
     public List<Ticket> Ticket { get; set; } = [];
 }
