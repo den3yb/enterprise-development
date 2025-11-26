@@ -10,7 +10,7 @@ public class AircraftFamily
     /// <summary>
     /// Уникальный идентификатор
     /// </summary>
-    public required int Id { get; set; }
+    public  int Id { get; set; }
 
     /// <summary>
     /// Название семейства
@@ -25,5 +25,5 @@ public class AircraftFamily
     /// <summary>
     /// Модели принадлежащие этому семейству самолётов
     /// </summary>
-    public List<AircraftModel> Models { get; set; } = [];
+    public List<AircraftModel>? Models { get; set; } = [];
 }
