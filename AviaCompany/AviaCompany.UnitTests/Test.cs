@@ -48,10 +48,9 @@ public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<Fligh
             .ToList();
 
         Assert.Equal(5, result.Count);
-        Assert.True(result[0].PassengerCount >= result[1].PassengerCount);
-        Assert.True(result[1].PassengerCount >= result[2].PassengerCount);
-        Assert.True(result[2].PassengerCount >= result[3].PassengerCount);
-        Assert.True(result[3].PassengerCount >= result[4].PassengerCount);
+        for (var i = 0; i < result.Count - 1 ; i++){
+             Assert.True(result[i].PassengerCount >= result[i+1].PassengerCount);
+        }
         Assert.All(result, r => Assert.NotNull(r.Flight));
     }
 
