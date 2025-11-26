@@ -34,7 +34,7 @@ public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<Fligh
     /// Проверка получения топ-5 рейсов по количеству пассажиров
     /// </summary>
     [Fact]
-    public void Top5FlightsByPassengerCount_ShouldReturnCorrectResults()
+    public void GetTop5FlightsByPassengerCount_ReturnsFiveFlights()
     {
         var result = fixture.Tickets
             .GroupBy(t => t.FlightId)
@@ -57,7 +57,7 @@ public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<Fligh
     /// Проверка получения рейсов с минимальной продолжительностью
     /// </summary>
     [Fact]
-    public void FlightsWithMinDuration_ShouldReturnCorrectResults()
+    public void GetFlightsWithMinimalDuration_ReturnsExpectedFlights()
     {
         var minDuration = fixture.Flights.Min(f => f.Duration);
         var result = fixture.Flights
@@ -74,7 +74,7 @@ public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<Fligh
     /// Проверка получения пассажиров без багажа на выбранном рейсе
     /// </summary>
     [Fact]
-    public void PassengersWithZeroLuggageOnSelectedFlight_ShouldReturnCorrectResults()
+    public void GetPassengersWithoutBaggage_ReturnsPassengers()
     {
         var selectedFlight = fixture.Flights[0];
         var result = fixture.Tickets
@@ -94,7 +94,7 @@ public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<Fligh
     /// Проверка фильтрации рейсов по модели самолета и периоду времени
     /// </summary>
     [Fact]
-    public void FlightsByAircraftModelAndTimePeriod_ShouldReturnCorrectResults()
+    public void GetFlightsByModelAndPeriod_ReturnsCorrectFlights()
     {
         var selectedModel = fixture.Models[0];
         var startDate = new DateTime(2024, 1, 14);
@@ -102,25 +102,15 @@ public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<Fligh
 
         var result = fixture.Flights
             .Where(f => f.AircraftModelId == selectedModel.Id &&
-                       f.DepartureDate >= startDate &&
-                       f.DepartureDate <= endDate)
-            .Select(f => new
-            {
-                FlightCode = f.Code,
-                DeparturePoint = f.DeparturePoint,
-                DestinationPoint = f.ArrivalPoint,
-                DepartureDate = f.DepartureDate,
-                ArrivalDate = f.ArrivalDate,
-                AircraftModel = f.AircraftModel.Name,
-                Duration = f.Duration
-            })
+                    f.DepartureDate >= startDate &&
+                    f.DepartureDate <= endDate)
             .ToList();
 
-        Assert.All(result, f => 
+        Assert.All(result, flight => 
         {
-            Assert.Equal(selectedModel.Id, fixture.Flights.First(fl => fl.Code == f.FlightCode).AircraftModelId);
-            Assert.True(f.DepartureDate >= startDate);
-            Assert.True(f.DepartureDate <= endDate);
+            Assert.Equal(selectedModel.Id, flight.AircraftModelId);
+            Assert.True(flight.DepartureDate >= startDate);
+            Assert.True(flight.DepartureDate <= endDate);
         });
     }
 
@@ -128,7 +118,7 @@ public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<Fligh
     /// Проверка поиска рейсов по пункту вылета и назначения
     /// </summary>
     [Fact]
-    public void FlightsByDepartureAndArrivalPoints_ShouldReturnCorrectResults()
+    public void GetFlightsByDepartureArrivalPoint_ReturnsExpectedFlights()
     {
         var departurePoint = "Moscow";
         var arrivalPoint = "St. Petersburg";
@@ -142,6 +132,6 @@ public class FlightQueriesTests(FlightDataFixture fixture) : IClassFixture<Fligh
             Assert.Equal(departurePoint, f.DeparturePoint);
             Assert.Equal(arrivalPoint, f.ArrivalPoint);
         });
-        Assert.True(result.Count >= 2); 
+        Assert.True(result.Count == 2); 
     }
 }
