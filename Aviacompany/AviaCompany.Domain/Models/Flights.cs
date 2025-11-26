@@ -11,7 +11,7 @@ public class Flight
     /// <summary>
     /// Уникальный идентификатор
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Код рейса

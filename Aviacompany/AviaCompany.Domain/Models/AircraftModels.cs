@@ -10,7 +10,7 @@ public class AircraftModel
     /// <summary>
     /// Уникальный идентификатор
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Название модели
