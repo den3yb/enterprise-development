@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviaCompany.UnitTests", "Av
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviaCompany.Application.Contracts", "AviaCompany.Application.Contracts\AviaCompany.Application.Contracts.csproj", "{4494E6C2-82CD-4130-9D13-AB09D10A7BA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviaCompany.AppHost", "AviaCompany.AppHost\AviaCompany.AppHost.csproj", "{70D9AA82-7DF5-4CE6-ACB7-3E4E29015C30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{4494E6C2-82CD-4130-9D13-AB09D10A7BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4494E6C2-82CD-4130-9D13-AB09D10A7BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4494E6C2-82CD-4130-9D13-AB09D10A7BA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70D9AA82-7DF5-4CE6-ACB7-3E4E29015C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70D9AA82-7DF5-4CE6-ACB7-3E4E29015C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70D9AA82-7DF5-4CE6-ACB7-3E4E29015C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70D9AA82-7DF5-4CE6-ACB7-3E4E29015C30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
