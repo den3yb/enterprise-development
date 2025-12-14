@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-  <ProjectReference Include="../AviaCompany.Api.Host/AviaCompany.Api.Host.csproj" />
+    <ProjectReference Include="..\AviaCompany.Api.Host\AviaCompany.Api.Host.csproj" />
   </ItemGroup>
 
 </Project>

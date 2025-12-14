@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using AviaCompany.Application.Contracts;
+using Microsoft.Extensions.Logging;
 
 namespace AviaCompany.Api.Host.Controllers;
 
