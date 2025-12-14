@@ -1,11 +1,7 @@
 ﻿// AviaCompany.Application/AviaCompanyProfile.cs
 
 using AutoMapper;
-using AviaCompany.Application.Contracts.DTOs.AircraftFamily;
-using AviaCompany.Application.Contracts.DTOs.AircraftModel;
-using AviaCompany.Application.Contracts.DTOs.Flight;
-using AviaCompany.Application.Contracts.DTOs.Passenger;
-using AviaCompany.Application.Contracts.DTOs.Ticket;
+using AviaCompany.Application.Contracts;
 using AviaCompany.Domain;
 
 namespace AviaCompany.Application;

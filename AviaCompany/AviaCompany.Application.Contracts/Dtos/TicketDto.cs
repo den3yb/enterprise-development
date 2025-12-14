@@ -1,6 +1,4 @@
-// AviaCompany.Application.Contracts/DTOs/Ticket/TicketDto.cs
-
-namespace AviaCompany.Application.Contracts.DTOs.Ticket;
+namespace AviaCompany.Application.Contracts;
 
 
 /// <summary>

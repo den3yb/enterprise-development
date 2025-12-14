@@ -1,8 +1,5 @@
-// AviaCompany.Application/Services/AircraftFamilyService.cs
-
 using AutoMapper;
 using AviaCompany.Application.Contracts;
-using AviaCompany.Application.Contracts.DTOs.AircraftFamily;
 using AviaCompany.Domain;
 
 namespace AviaCompany.Application.Services;

@@ -1,7 +1,6 @@
 // AviaCompany.Application.Contracts/IAnalyticsService.cs
 
-using AviaCompany.Application.Contracts.DTOs.Flight;
-using AviaCompany.Application.Contracts.DTOs.Passenger;
+using AviaCompany.Application.Contracts;
 
 namespace AviaCompany.Application.Contracts;
 

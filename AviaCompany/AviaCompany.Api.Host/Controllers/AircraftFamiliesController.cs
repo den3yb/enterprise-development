@@ -1,8 +1,5 @@
-// AviaCompany.Api.Host/Controllers/AircraftFamiliesController.cs
-
 using Microsoft.AspNetCore.Mvc;
 using AviaCompany.Application.Contracts;
-using AviaCompany.Application.Contracts.DTOs.AircraftFamily;
 
 namespace AviaCompany.Api.Host.Controllers;
 

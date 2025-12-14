@@ -1,4 +1,4 @@
-namespace AviaCompany.Application.Contracts.DTOs.AircraftModel;
+namespace AviaCompany.Application.Contracts;
 
 
 /// <summary>

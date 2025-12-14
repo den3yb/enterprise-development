@@ -1,11 +1,9 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var realEstateAgencyDb = builder
-    .AddPostgres("avia-company-db")
-    .AddDatabase("avia-company");
+var db = builder.AddPostgres("postgres")
+	.WithPgAdmin();
 
-builder.AddProject<Projects.RealEstateAgency_Api_Host>("realestateagency-api-host")
-    .WithReference(realEstateAgencyDb, "DatabaseConnection")
-    .WaitFor(realEstateAgencyDb);
+var api = builder.AddProject<Projects.AviaCompany_Api_Host>("apihost")
+	.WithReference(db);
 
 builder.Build().Run();

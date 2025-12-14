@@ -1,8 +1,5 @@
-// AviaCompany.Api.Host/Controllers/PassengersController.cs
-
 using Microsoft.AspNetCore.Mvc;
 using AviaCompany.Application.Contracts;
-using AviaCompany.Application.Contracts.DTOs.Passenger;
 
 namespace AviaCompany.Api.Host.Controllers;
 

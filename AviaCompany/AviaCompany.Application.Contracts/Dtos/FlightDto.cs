@@ -1,6 +1,6 @@
 using System;
 
-namespace AviaCompany.Application.Contracts.DTOs.Flight;
+namespace AviaCompany.Application.Contracts;
 
 
 /// <summary>

@@ -1,8 +1,5 @@
-// AviaCompany.Api.Host/Controllers/FlightsController.cs
-
 using Microsoft.AspNetCore.Mvc;
 using AviaCompany.Application.Contracts;
-using AviaCompany.Application.Contracts.DTOs.Flight;
 
 namespace AviaCompany.Api.Host.Controllers;
 

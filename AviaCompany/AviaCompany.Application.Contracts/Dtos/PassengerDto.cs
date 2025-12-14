@@ -1,8 +1,6 @@
-// AviaCompany.Application.Contracts/DTOs/Passenger/PassengerDto.cs
-
 using System;
 
-namespace AviaCompany.Application.Contracts.DTOs.Passenger;
+namespace AviaCompany.Application.Contracts;
 
 
 /// <summary>

@@ -12,6 +12,12 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
+    <PackageReference Include="Aspire.Npgsql" Version="8.0.0" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+  <ProjectReference Include="../AviaCompany.Api.Host/AviaCompany.Api.Host.csproj" />
   </ItemGroup>
 
 </Project>

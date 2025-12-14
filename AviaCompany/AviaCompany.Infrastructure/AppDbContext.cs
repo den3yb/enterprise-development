@@ -7,21 +7,21 @@ namespace AviaCompany.Infrastructure;
 /// <summary>
 /// Контекст бд Авиакомпании
 /// </summary>
-public class AppDbContext(DbContextOptions<AppDbContext> options, DataGenerator: generator) : DbContext(options)
+public class AppDbContext(DbContextOptions options) : DbContext(options)
 {
     /// <summary>
     /// Задания таблиц 
     /// </summary>
-    public DbSet<AircraftFamily> AircraftFamilies { get; set; };
-    public DbSet<AircraftModel> AircraftModels { get; set; };
-    public DbSet<Flight> Flights { get; set; };
-    public DbSet<Passenger> Passengers { get; set; };
-    public DbSet<Ticket> Tickets => { get; set; };
+    public DbSet<AircraftFamily> AircraftFamilies { get; set; }
+    public DbSet<AircraftModel> AircraftModels { get; set; }
+    public DbSet<Flight> Flights { get; set; }
+    public DbSet<Passenger> Passengers { get; set; }
+    public DbSet<Ticket> Tickets { get; set; }
 
     /// <summary>
     /// Конфигурация модели бд задающая все необходимые поля, связи и параметры  удаления
     /// </summary>
-    protected override void OnModelCreating(ModelBuilder modelBuilder, DataSeeder seeder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AircraftFamily>(builder =>
         {
@@ -32,8 +32,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, DataGenerator:
             builder.Property(af => af.Id).HasColumnName("id");
             builder.Property(af => af.Name).IsRequired().HasMaxLength(100).HasColumnName("name");
             builder.Property(af => af.Manufacturer).IsRequired().HasMaxLength(100).HasColumnName("manufacturer");
-
-            builder.HasData(seeder.Families)
         });
 
         modelBuilder.Entity<AircraftModel>(builder =>
@@ -53,9 +51,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, DataGenerator:
                    .WithMany(af => af.Models!)
                    .HasForeignKey(am => am.AircraftFamilyId)
                    .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasData(seeder.Models)
         });
+
         modelBuilder.Entity<Flight>(builder =>
         {
             builder.ToTable("flights");
@@ -75,8 +72,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, DataGenerator:
                    .WithMany(am => am.Flights!)
                    .HasForeignKey(f => f.AircraftModelId)
                    .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasData(seeder.Flights)
         });
 
         modelBuilder.Entity<Passenger>(builder =>
@@ -89,8 +84,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, DataGenerator:
             builder.Property(p => p.PassportNumber).IsRequired().HasMaxLength(20).HasColumnName("passport_number");
             builder.Property(p => p.FullName).IsRequired().HasMaxLength(200).HasColumnName("full_name");
             builder.Property(p => p.BirthDate).HasColumnName("birth_date");
-
-            builder.HasData(seeder.Passengers)
         });
 
         modelBuilder.Entity<Ticket>(builder =>
@@ -115,8 +108,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, DataGenerator:
                    .WithMany(p => p.Ticket!)
                    .HasForeignKey(t => t.PassengerId)
                    .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasData(seeder.Tickets)
             });
     }
 }

@@ -2,7 +2,6 @@
 
 using AutoMapper;
 using AviaCompany.Application.Contracts;
-using AviaCompany.Application.Contracts.DTOs.AircraftModel;
 using AviaCompany.Domain;
 
 namespace AviaCompany.Application.Services;

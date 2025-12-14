@@ -1,8 +1,5 @@
-// AviaCompany.Api.Host/Controllers/TicketsController.cs
-
 using Microsoft.AspNetCore.Mvc;
 using AviaCompany.Application.Contracts;
-using AviaCompany.Application.Contracts.DTOs.Ticket;
 
 namespace AviaCompany.Api.Host.Controllers;
 
