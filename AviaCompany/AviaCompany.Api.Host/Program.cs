@@ -1,3 +1,6 @@
+/// <summary>
+/// Точка входа веб-приложения авиакомпании с настройкой зависимостей, миграций и middleware.
+/// </summary>
 using System.Threading;
 using AviaCompany.Application;
 using AviaCompany.Application.Contracts;
@@ -9,46 +12,66 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Aspire integration
+/// <summary>
+/// Интеграция с Aspire для управления зависимостями.
+/// </summary>
 builder.AddServiceDefaults();
 
-// Swagger
+/// <summary>
+/// Настройка генерации Swagger-документации.
+/// </summary>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Controllers
+/// <summary>
+/// Регистрация контроллеров API.
+/// </summary>
 builder.Services.AddControllers();
 
-// PostgreSQL via Aspire
+/// <summary>
+/// Настройка подключения к PostgreSQL через Aspire.
+/// </summary>
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("postgres")));
 
-// AutoMapper
+/// <summary>
+/// Регистрация AutoMapper с профилем маппинга.
+/// </summary>
 builder.Services.AddAutoMapper(typeof(AviaCompanyProfile));
 
-// DataSeeder as singleton
+/// <summary>
+/// Регистрация DataSeeder как singleton-сервиса.
+/// </summary>
 builder.Services.AddSingleton<DataSeeder>();
 
-// Repositories
+/// <summary>
+/// Регистрация репозиториев для всех сущностей.
+/// </summary>
 builder.Services.AddScoped<IRepository<AircraftFamily, int>, AircraftFamilyRepository>();
 builder.Services.AddScoped<IRepository<AircraftModel, int>, AircraftModelRepository>();
 builder.Services.AddScoped<IRepository<Flight, int>, FlightRepository>();
 builder.Services.AddScoped<IRepository<Passenger, int>, PassengerRepository>();
 builder.Services.AddScoped<IRepository<Ticket, int>, TicketRepository>();
 
-// CRUD Services
+/// <summary>
+/// Регистрация CRUD-сервисов приложения.
+/// </summary>
 builder.Services.AddScoped<IApplicationService<FlightDto, FlightCreateUpdateDto, int>, FlightService>();
 builder.Services.AddScoped<IApplicationService<AircraftFamilyDto, AircraftFamilyCreateUpdateDto, int>, AircraftFamilyService>();
 builder.Services.AddScoped<IApplicationService<AircraftModelDto, AircraftModelCreateUpdateDto, int>, AircraftModelService>();
 builder.Services.AddScoped<IApplicationService<PassengerDto, PassengerCreateUpdateDto, int>, PassengerService>();
 builder.Services.AddScoped<IApplicationService<TicketDto, TicketCreateUpdateDto, int>, TicketService>();
 
-// Analytics
+/// <summary>
+/// Регистрация сервиса аналитики.
+/// </summary>
 builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 
 var app = builder.Build();
 
-// === Применяем миграции с retry ===
+/// <summary>
+/// Применение миграций базы данных с механизмом повторных попыток и инициализация тестовых данных.
+/// </summary>
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -62,7 +85,7 @@ using (var scope = app.Services.CreateScope())
     {
         try
         {
-            context.Database.Migrate(); // Создаёт таблицы, если их нет
+            context.Database.Migrate(); 
             break;
         }
         catch (Exception ex) when (ex is Npgsql.NpgsqlException or InvalidOperationException)
@@ -76,7 +99,6 @@ using (var scope = app.Services.CreateScope())
         }
     }
 
-    // Заполняем данными, только если БД пустая
     if (!context.AircraftFamilies.Any())
     {
         context.AircraftFamilies.AddRange(seeder.Families);
@@ -85,13 +107,32 @@ using (var scope = app.Services.CreateScope())
         context.Passengers.AddRange(seeder.Passengers);
         context.Tickets.AddRange(seeder.Tickets);
         context.SaveChanges();
+        await context.Database.ExecuteSqlRawAsync(
+            "SELECT setval('aircraft_families_id_seq', (SELECT MAX(id) FROM aircraft_families));"
+        );
+        await context.Database.ExecuteSqlRawAsync(
+            "SELECT setval('aircraft_models_id_seq', (SELECT MAX(id) FROM aircraft_models));"
+        );
+        await context.Database.ExecuteSqlRawAsync(
+            "SELECT setval('flights_id_seq', (SELECT MAX(id) FROM flights));"
+        );
+        await context.Database.ExecuteSqlRawAsync(
+            "SELECT setval('passengers_id_seq', (SELECT MAX(id) FROM passengers));"
+        );
+        await context.Database.ExecuteSqlRawAsync(
+            "SELECT setval('tickets_id_seq', (SELECT MAX(id) FROM tickets));"
+        );
     }
 }
 
-// Aspire health endpoints
+/// <summary>
+/// Регистрация health-check endpoint'ов для Aspire.
+/// </summary>
 app.MapDefaultEndpoints();
 
-// Swagger (всегда включён для лабораторной)
+/// <summary>
+/// Подключение Swagger UI (всегда включено для лабораторной работы).
+/// </summary>
 app.UseSwagger();
 app.UseSwaggerUI();
 

@@ -1,5 +1,3 @@
-// AviaCompany.Application/Services/TicketService.cs
-
 using AutoMapper;
 using AviaCompany.Application.Contracts;
 using AviaCompany.Domain;

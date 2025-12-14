@@ -29,7 +29,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
 
             builder.HasKey(af => af.Id);
 
-            builder.Property(af => af.Id).HasColumnName("id");
+            builder.Property(af => af.Id).HasColumnName("id").UseIdentityColumn();
             builder.Property(af => af.Name).IsRequired().HasMaxLength(100).HasColumnName("name");
             builder.Property(af => af.Manufacturer).IsRequired().HasMaxLength(100).HasColumnName("manufacturer");
         });
