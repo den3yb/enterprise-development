@@ -131,10 +131,13 @@ using (var scope = app.Services.CreateScope())
 app.MapDefaultEndpoints();
 
 /// <summary>
-/// Подключение Swagger UI (всегда включено для лабораторной работы).
+/// Подключение Swagger UI (включен только в режиме Debug-режиме).
 /// </summary>
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
