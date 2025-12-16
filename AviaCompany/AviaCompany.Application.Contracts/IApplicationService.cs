@@ -13,25 +13,25 @@ public interface IApplicationService<TDto, TCreateUpdateDto, TKey>
     /// <summary>
     /// Создание новой сущности на основе DTO
     /// </summary>
-    Task<TDto> Create(TCreateUpdateDto dto);
+    public Task<TDto> Create(TCreateUpdateDto dto);
 
     /// <summary>
     /// Получение сущности по идентификатору
     /// </summary>
-    Task<TDto?> Get(TKey dtoId);
+    public Task<TDto?> Get(TKey dtoId);
 
     /// <summary>
     /// Получение полного списка сущностей
     /// </summary>
-    Task<IList<TDto>> GetAll();
+    public Task<IList<TDto>> GetAll();
 
     /// <summary>
     /// Обновление сущности по идентификатору
     /// </summary>
-    Task<TDto> Update(TCreateUpdateDto dto, TKey dtoId);
+    public Task<TDto> Update(TCreateUpdateDto dto, TKey dtoId);
 
     /// <summary>
     /// Удаление сущности по идентификатору
     /// </summary>
-    Task<bool> Delete(TKey dtoId);
+    public Task<bool> Delete(TKey dtoId);
 }

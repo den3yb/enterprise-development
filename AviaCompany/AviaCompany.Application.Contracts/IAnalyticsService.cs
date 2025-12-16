@@ -12,25 +12,25 @@ public interface IAnalyticsService
     /// <summary>
     /// Получение топ-5 рейсов по количеству пассажиров
     /// </summary>
-    Task<IList<FlightDto>> GetTop5FlightsByPassengerCountAsync();
+    public Task<IList<FlightDto>> GetTop5FlightsByPassengerCountAsync();
 
     /// <summary>
     /// Получение рейсов с минимальной продолжительностью
     /// </summary>
-    Task<IList<FlightDto>> GetFlightsWithMinimalDurationAsync();
+    public Task<IList<FlightDto>> GetFlightsWithMinimalDurationAsync();
 
     /// <summary>
     /// Получение пассажиров без багажа на выбранном рейсе
     /// </summary>
-    Task<IList<PassengerDto>> GetPassengersWithoutBaggageOnFlightAsync(int flightId);
+    public Task<IList<PassengerDto>> GetPassengersWithoutBaggageOnFlightAsync(int flightId);
 
     /// <summary>
     /// Получение рейсов по модели самолета и периоду времени
     /// </summary>
-    Task<IList<FlightDto>> GetFlightsByModelAndPeriodAsync(int modelId, DateTime startDate, DateTime endDate);
+    public Task<IList<FlightDto>> GetFlightsByModelAndPeriodAsync(int modelId, DateTime startDate, DateTime endDate);
 
     /// <summary>
     /// Получение рейсов по пункту вылета и назначения
     /// </summary>
-    Task<IList<FlightDto>> GetFlightsByDepartureAndArrivalAsync(string departurePoint, string arrivalPoint);
+    public Task<IList<FlightDto>> GetFlightsByDepartureAndArrivalAsync(string departurePoint, string arrivalPoint);
 }
