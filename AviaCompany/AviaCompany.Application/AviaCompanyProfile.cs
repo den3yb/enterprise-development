@@ -1,6 +1,4 @@
-﻿// AviaCompany.Application/AviaCompanyProfile.cs
-
-using AutoMapper;
+﻿using AutoMapper;
 using AviaCompany.Application.Contracts;
 using AviaCompany.Domain;
 

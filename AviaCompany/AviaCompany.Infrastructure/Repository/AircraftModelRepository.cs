@@ -1,5 +1,3 @@
-// AviaCompany.Infrastructure/Repositories/AircraftModelRepository.cs
-
 using Microsoft.EntityFrameworkCore;
 using AviaCompany.Domain;
 

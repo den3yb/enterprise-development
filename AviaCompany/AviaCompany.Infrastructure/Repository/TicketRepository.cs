@@ -1,5 +1,3 @@
-// AviaCompany.Infrastructure/Repositories/TicketRepository.cs
-
 using Microsoft.EntityFrameworkCore;
 using AviaCompany.Domain;
 

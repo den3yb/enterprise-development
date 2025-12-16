@@ -1,5 +1,3 @@
-// AviaCompany.Infrastructure/Repositories/PassengerRepository.cs
-
 using Microsoft.EntityFrameworkCore;
 using AviaCompany.Domain;
 
