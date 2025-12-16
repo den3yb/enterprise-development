@@ -96,8 +96,9 @@ public class PassengersController(IApplicationService<PassengerDto, PassengerCre
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Update), GetType().Name);
             return Ok(result);
         }
-        catch (ArgumentException)
+         catch (ArgumentException ex)
         {
+            logger.LogWarning("Invalid argument during {method} in {controller}: {@exception}", nameof(Update), GetType().Name, ex);
             return NotFound();
         }
         catch (Exception ex)
