@@ -3,10 +3,9 @@ using System;
 namespace AviaCompany.Application.Contracts;
 
 /// <summary>
-/// DTO для отображени информации о пасажирах
+/// DTO для обновления и создания пасажиров
 /// </summary>
-public record PassengerDto(
-    int Id,
+public record PassengerCreateUpdateDto(
     string PassportNumber,
     string FullName,
     DateOnly BirthDate

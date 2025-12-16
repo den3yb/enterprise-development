@@ -1,10 +1,9 @@
 namespace AviaCompany.Application.Contracts;
 
 /// <summary>
-/// DTO для отображени информации о модели самолетов
+/// DTO для обновления и создания модели самолетов
 /// </summary>
-public record AircraftModelDto(
-    int Id,
+public record AircraftModelCreateUpdateDto(
     string Name,
     double FlightRange,
     int PassengerCapacity,
