@@ -141,25 +141,19 @@ public static class DataGenerator
             new Ticket { Id = 3, SeatNumber = "2A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight1.Id, Flight = flight1, PassengerId = passenger3.Id, Passenger = passenger3 },
             new Ticket { Id = 4, SeatNumber = "2B", HasHandLuggage = true, LuggageWeight = 8.5, FlightId = flight1.Id, Flight = flight1, PassengerId = passenger4.Id, Passenger = passenger4 },
             new Ticket { Id = 5, SeatNumber = "3A", HasHandLuggage = true, LuggageWeight = 10.0, FlightId = flight1.Id, Flight = flight1, PassengerId = passenger5.Id, Passenger = passenger5 },
-
             new Ticket { Id = 6, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 14.0, FlightId = flight2.Id, Flight = flight2, PassengerId = passenger6.Id, Passenger = passenger6 },
             new Ticket { Id = 7, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight2.Id, Flight = flight2, PassengerId = passenger7.Id, Passenger = passenger7 },
             new Ticket { Id = 8, SeatNumber = "2A", HasHandLuggage = true, LuggageWeight = 9.5, FlightId = flight2.Id, Flight = flight2, PassengerId = passenger8.Id, Passenger = passenger8 },
             new Ticket { Id = 9, SeatNumber = "2B", HasHandLuggage = true, LuggageWeight = 11.0, FlightId = flight2.Id, Flight = flight2, PassengerId = passenger9.Id, Passenger = passenger9 },
-
             new Ticket { Id = 10, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 16.0, FlightId = flight3.Id, Flight = flight3, PassengerId = passenger10.Id, Passenger = passenger10 },
             new Ticket { Id = 11, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight3.Id, Flight = flight3, PassengerId = passenger1.Id, Passenger = passenger1 },
             new Ticket { Id = 12, SeatNumber = "2A", HasHandLuggage = true, LuggageWeight = 7.5, FlightId = flight3.Id, Flight = flight3, PassengerId = passenger2.Id, Passenger = passenger2 },
-
             new Ticket { Id = 13, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 20.0, FlightId = flight4.Id, Flight = flight4, PassengerId = passenger3.Id, Passenger = passenger3 },
             new Ticket { Id = 14, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight4.Id, Flight = flight4, PassengerId = passenger4.Id, Passenger = passenger4 },
-
             new Ticket { Id = 15, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 18.5, FlightId = flight5.Id, Flight = flight5, PassengerId = passenger5.Id, Passenger = passenger5 },
-
             new Ticket { Id = 16, SeatNumber = "1A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight6.Id, Flight = flight6, PassengerId = passenger6.Id, Passenger = passenger6 },
             new Ticket { Id = 17, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight6.Id, Flight = flight6, PassengerId = passenger7.Id, Passenger = passenger7 },
             new Ticket { Id = 18, SeatNumber = "2A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight6.Id, Flight = flight6, PassengerId = passenger8.Id, Passenger = passenger8 },
-
             new Ticket { Id = 19, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 13.0, FlightId = flight7.Id, Flight = flight7, PassengerId = passenger9.Id, Passenger = passenger9 },
             new Ticket { Id = 20, SeatNumber = "1B", HasHandLuggage = true, LuggageWeight = 11.5, FlightId = flight8.Id, Flight = flight8, PassengerId = passenger10.Id, Passenger = passenger10 },
             new Ticket { Id = 21, SeatNumber = "1A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight9.Id, Flight = flight9, PassengerId = passenger1.Id, Passenger = passenger1 },
