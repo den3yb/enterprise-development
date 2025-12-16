@@ -17,7 +17,7 @@ public class FlightsController(IApplicationService<FlightDto, FlightCreateUpdate
     [HttpGet]
     [ProducesResponseType(typeof(List<FlightDto>), 200)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetAll()
+    public async Task<ActionResult<List<FlightDto>>> GetAll()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(GetAll), GetType().Name);
         try
@@ -40,7 +40,7 @@ public class FlightsController(IApplicationService<FlightDto, FlightCreateUpdate
     [ProducesResponseType(typeof(FlightDto), 200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetById(int id)
+    public async Task<ActionResult<FlightDto>> GetById(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id}", nameof(GetById), GetType().Name, id);
         try
@@ -64,7 +64,7 @@ public class FlightsController(IApplicationService<FlightDto, FlightCreateUpdate
     [HttpPost]
     [ProducesResponseType(typeof(FlightDto), 201)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> Create([FromBody] FlightCreateUpdateDto dto)
+    public async Task<ActionResult<FlightDto>> Create([FromBody] FlightCreateUpdateDto dto)
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(Create), GetType().Name);
         try
@@ -87,7 +87,7 @@ public class FlightsController(IApplicationService<FlightDto, FlightCreateUpdate
     [ProducesResponseType(typeof(FlightDto), 200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> Update(int id, [FromBody] FlightCreateUpdateDto dto)
+    public async Task<ActionResult<FlightDto>> Update(int id, [FromBody] FlightCreateUpdateDto dto)
     {
         logger.LogInformation("{method} method of {controller} is called with {id}", nameof(Update), GetType().Name, id);
         try

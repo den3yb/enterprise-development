@@ -17,7 +17,7 @@ public class TicketsController(IApplicationService<TicketDto, TicketCreateUpdate
     [HttpGet]
     [ProducesResponseType(typeof(List<TicketDto>), 200)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetAll()
+    public async Task<ActionResult<List<TicketDto>>> GetAll()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(GetAll), GetType().Name);
         try
@@ -40,7 +40,7 @@ public class TicketsController(IApplicationService<TicketDto, TicketCreateUpdate
     [ProducesResponseType(typeof(TicketDto), 200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetById(int id)
+    public async Task<ActionResult<TicketDto>> GetById(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id}", nameof(GetById), GetType().Name, id);
         try
@@ -64,7 +64,7 @@ public class TicketsController(IApplicationService<TicketDto, TicketCreateUpdate
     [HttpPost]
     [ProducesResponseType(typeof(TicketDto), 201)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> Create([FromBody] TicketCreateUpdateDto dto)
+    public async Task<ActionResult<TicketDto>> Create([FromBody] TicketCreateUpdateDto dto)
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(Create), GetType().Name);
         try
@@ -87,7 +87,7 @@ public class TicketsController(IApplicationService<TicketDto, TicketCreateUpdate
     [ProducesResponseType(typeof(TicketDto), 200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> Update(int id, [FromBody] TicketCreateUpdateDto dto)
+    public async Task<ActionResult<TicketDto>> Update(int id, [FromBody] TicketCreateUpdateDto dto)
     {
         logger.LogInformation("{method} method of {controller} is called with {id}", nameof(Update), GetType().Name, id);
         try

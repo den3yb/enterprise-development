@@ -19,7 +19,7 @@ public class AnalyticsController(IAnalyticsService service, ILogger<AnalyticsCon
     [HttpGet("top-5-flights-by-passenger-count")]
     [ProducesResponseType(typeof(List<FlightDto>), 200)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetTop5FlightsByPassengerCount()
+    public async Task<ActionResult<List<FlightDto>>> GetTop5FlightsByPassengerCount()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(GetTop5FlightsByPassengerCount), GetType().Name);
         try
@@ -41,7 +41,7 @@ public class AnalyticsController(IAnalyticsService service, ILogger<AnalyticsCon
     [HttpGet("flights-with-minimal-duration")]
     [ProducesResponseType(typeof(List<FlightDto>), 200)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetFlightsWithMinimalDuration()
+    public async Task<ActionResult<List<FlightDto>>> GetFlightsWithMinimalDuration()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(GetFlightsWithMinimalDuration), GetType().Name);
         try
@@ -63,7 +63,7 @@ public class AnalyticsController(IAnalyticsService service, ILogger<AnalyticsCon
     [HttpGet("passengers-without-baggage-on-flight")]
     [ProducesResponseType(typeof(List<PassengerDto>), 200)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetPassengersWithoutBaggageOnFlight([FromQuery] int flightId)
+    public async Task<ActionResult<List<PassengerDto>>> GetPassengersWithoutBaggageOnFlight([FromQuery] int flightId)
     {
         logger.LogInformation("{method} method of {controller} is called with {flightId}", nameof(GetPassengersWithoutBaggageOnFlight), GetType().Name, flightId);
         try
@@ -85,7 +85,7 @@ public class AnalyticsController(IAnalyticsService service, ILogger<AnalyticsCon
     [HttpGet("flights-by-model-and-period")]
     [ProducesResponseType(typeof(List<FlightDto>), 200)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetFlightsByModelAndPeriod([FromQuery] int modelId, [FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+    public async Task<ActionResult<List<FlightDto>>> GetFlightsByModelAndPeriod([FromQuery] int modelId, [FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
     {
         logger.LogInformation("{method} method of {controller} is called with {modelId}, {startDate}, {endDate}", nameof(GetFlightsByModelAndPeriod), GetType().Name, modelId, startDate, endDate);
         try
@@ -107,7 +107,7 @@ public class AnalyticsController(IAnalyticsService service, ILogger<AnalyticsCon
     [HttpGet("flights-by-departure-and-arrival")]
     [ProducesResponseType(typeof(List<FlightDto>), 200)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetFlightsByDepartureAndArrival([FromQuery] string departurePoint, [FromQuery] string arrivalPoint)
+    public async Task<ActionResult<List<FlightDto>>> GetFlightsByDepartureAndArrival([FromQuery] string departurePoint, [FromQuery] string arrivalPoint)
     {
         logger.LogInformation("{method} method of {controller} is called with {departurePoint}, {arrivalPoint}", nameof(GetFlightsByDepartureAndArrival), GetType().Name, departurePoint, arrivalPoint);
         try

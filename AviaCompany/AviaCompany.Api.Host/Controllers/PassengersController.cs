@@ -17,7 +17,7 @@ public class PassengersController(IApplicationService<PassengerDto, PassengerCre
     [HttpGet]
     [ProducesResponseType(typeof(List<PassengerDto>), 200)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetAll()
+    public async Task<ActionResult<List<PassengerDto>>> GetAll()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(GetAll), GetType().Name);
         try
@@ -40,7 +40,7 @@ public class PassengersController(IApplicationService<PassengerDto, PassengerCre
     [ProducesResponseType(typeof(PassengerDto), 200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetById(int id)
+    public async Task<ActionResult<PassengerDto>> GetById(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id}", nameof(GetById), GetType().Name, id);
         try
@@ -64,7 +64,7 @@ public class PassengersController(IApplicationService<PassengerDto, PassengerCre
     [HttpPost]
     [ProducesResponseType(typeof(PassengerDto), 201)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> Create([FromBody] PassengerCreateUpdateDto dto)
+    public async Task<ActionResult<PassengerDto>> Create([FromBody] PassengerCreateUpdateDto dto)
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(Create), GetType().Name);
         try
@@ -87,7 +87,7 @@ public class PassengersController(IApplicationService<PassengerDto, PassengerCre
     [ProducesResponseType(typeof(PassengerDto), 200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> Update(int id, [FromBody] PassengerCreateUpdateDto dto)
+    public async Task<ActionResult<PassengerDto>> Update(int id, [FromBody] PassengerCreateUpdateDto dto)
     {
         logger.LogInformation("{method} method of {controller} is called with {id}", nameof(Update), GetType().Name, id);
         try

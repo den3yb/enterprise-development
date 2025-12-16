@@ -17,7 +17,7 @@ public class AircraftFamiliesController(IApplicationService<AircraftFamilyDto, A
     [HttpGet]
     [ProducesResponseType(typeof(List<AircraftFamilyDto>), 200)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetAll()
+    public async Task<ActionResult<List<AircraftFamilyDto>>> GetAll()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(GetAll), GetType().Name);
         try
@@ -40,7 +40,7 @@ public class AircraftFamiliesController(IApplicationService<AircraftFamilyDto, A
     [ProducesResponseType(typeof(AircraftFamilyDto), 200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> GetById(int id)
+    public async Task<ActionResult<AircraftFamilyDto>> GetById(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id}", nameof(GetById), GetType().Name, id);
         try
@@ -64,7 +64,7 @@ public class AircraftFamiliesController(IApplicationService<AircraftFamilyDto, A
     [HttpPost]
     [ProducesResponseType(typeof(AircraftFamilyDto), 201)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> Create([FromBody] AircraftFamilyCreateUpdateDto dto)
+    public async Task<ActionResult<AircraftFamilyDto>> Create([FromBody] AircraftFamilyCreateUpdateDto dto)
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(Create), GetType().Name);
         try
@@ -87,7 +87,7 @@ public class AircraftFamiliesController(IApplicationService<AircraftFamilyDto, A
     [ProducesResponseType(typeof(AircraftFamilyDto), 200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult> Update(int id, [FromBody] AircraftFamilyCreateUpdateDto dto)
+    public async Task<ActionResult<AircraftFamilyDto>> Update(int id, [FromBody] AircraftFamilyCreateUpdateDto dto)
     {
         logger.LogInformation("{method} method of {controller} is called with {id}", nameof(Update), GetType().Name, id);
         try
