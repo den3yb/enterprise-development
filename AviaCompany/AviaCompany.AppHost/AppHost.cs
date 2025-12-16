@@ -4,6 +4,7 @@ var db = builder.AddPostgres("postgres")
 	.WithPgAdmin();
 
 var api = builder.AddProject<Projects.AviaCompany_Api_Host>("apihost")
-	.WithReference(db);
+	.WithReference(db)
+	.WaitFor(db);
 
 builder.Build().Run();

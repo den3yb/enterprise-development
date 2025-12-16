@@ -77,27 +77,7 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
 
-    var retryCount = 0;
-    const int maxRetries = 10;
-    const int delayMs = 2000;
-
-    while (retryCount < maxRetries)
-    {
-        try
-        {
-            context.Database.Migrate(); 
-            break;
-        }
-        catch (Exception ex) when (ex is Npgsql.NpgsqlException or InvalidOperationException)
-        {
-            retryCount++;
-            if (retryCount >= maxRetries)
-                throw new Exception("Не удалось подключиться к базе данных после нескольких попыток.", ex);
-
-            Console.WriteLine($"Попытка {retryCount} не удалась. Повтор через {delayMs} мс...");
-            Thread.Sleep(delayMs);
-        }
-    }
+    context.Database.Migrate(); 
 
     if (!context.AircraftFamilies.Any())
     {
