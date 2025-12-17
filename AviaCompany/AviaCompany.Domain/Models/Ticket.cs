@@ -33,7 +33,7 @@ public class Ticket
     /// <summary>
     /// Рейс
     /// </summary>
-    public required Flight Flight { get; set; }
+    public Flight? Flight { get; set; }
     
     /// <summary>
     /// Идентификатор пассажира
@@ -43,5 +43,5 @@ public class Ticket
     /// <summary>
     /// Пассажир
     /// </summary>
-    public required Passenger Passenger { get; set; }
+    public Passenger? Passenger { get; set; }
 }

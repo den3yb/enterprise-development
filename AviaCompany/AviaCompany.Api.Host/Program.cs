@@ -77,32 +77,9 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
 
-    context.Database.Migrate(); 
+    await context.Database.MigrateAsync(); 
+    await DbSeeder.SeedAllAsync(context);
 
-    if (!context.AircraftFamilies.Any())
-    {
-        context.AircraftFamilies.AddRange(seeder.Families);
-        context.AircraftModels.AddRange(seeder.Models);
-        context.Flights.AddRange(seeder.Flights);
-        context.Passengers.AddRange(seeder.Passengers);
-        context.Tickets.AddRange(seeder.Tickets);
-        context.SaveChanges();
-        await context.Database.ExecuteSqlRawAsync(
-            "SELECT setval('aircraft_families_id_seq', (SELECT MAX(id) FROM aircraft_families));"
-        );
-        await context.Database.ExecuteSqlRawAsync(
-            "SELECT setval('aircraft_models_id_seq', (SELECT MAX(id) FROM aircraft_models));"
-        );
-        await context.Database.ExecuteSqlRawAsync(
-            "SELECT setval('flights_id_seq', (SELECT MAX(id) FROM flights));"
-        );
-        await context.Database.ExecuteSqlRawAsync(
-            "SELECT setval('passengers_id_seq', (SELECT MAX(id) FROM passengers));"
-        );
-        await context.Database.ExecuteSqlRawAsync(
-            "SELECT setval('tickets_id_seq', (SELECT MAX(id) FROM tickets));"
-        );
-    }
 }
 
 /// <summary>

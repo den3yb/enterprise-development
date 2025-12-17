@@ -40,7 +40,7 @@ public class AircraftModel
     /// <summary>
     /// Семейство самолетов
     /// </summary>
-    public required AircraftFamily AircraftFamily { get; set; }
+    public AircraftFamily? AircraftFamily { get; set; }
     
     /// <summary>
     /// Рейсы выполняемые данной моделью
