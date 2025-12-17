@@ -41,18 +41,18 @@ public static class DataGenerator
         var family9 = families[8];
         var family10 = families[9];
 
-        return new List<AircraftModel>
+         return new List<AircraftModel>
         {
-            new AircraftModel { Id = 1, Name = "A320-200", FlightRange = 6100, PassengerCapacity = 180, CargoCapacity = 3.5, AircraftFamilyId = family1.Id },
-            new AircraftModel { Id = 2, Name = "A320neo", FlightRange = 6300, PassengerCapacity = 195, CargoCapacity = 3.8, AircraftFamilyId = family1.Id },
-            new AircraftModel { Id = 3, Name = "737-800", FlightRange = 5765, PassengerCapacity = 189, CargoCapacity = 3.4, AircraftFamilyId = family2.Id },
-            new AircraftModel { Id = 4, Name = "737 MAX 8", FlightRange = 6570, PassengerCapacity = 210, CargoCapacity = 3.7, AircraftFamilyId = family2.Id },
-            new AircraftModel { Id = 5, Name = "A350-900", FlightRange = 15000, PassengerCapacity = 440, CargoCapacity = 12.5, AircraftFamilyId = family3.Id },
-            new AircraftModel { Id = 6, Name = "777-300ER", FlightRange = 13650, PassengerCapacity = 550, CargoCapacity = 14.5, AircraftFamilyId = family4.Id },
-            new AircraftModel { Id = 7, Name = "CRJ-900", FlightRange = 2845, PassengerCapacity = 90, CargoCapacity = 1.8, AircraftFamilyId = family5.Id },
-            new AircraftModel { Id = 8, Name = "E195", FlightRange = 4260, PassengerCapacity = 146, CargoCapacity = 2.5, AircraftFamilyId = family6.Id },
-            new AircraftModel { Id = 9, Name = "A380-800", FlightRange = 15200, PassengerCapacity = 853, CargoCapacity = 18.0, AircraftFamilyId = family7.Id },
-            new AircraftModel { Id = 10, Name = "787-9", FlightRange = 14140, PassengerCapacity = 420, CargoCapacity = 11.0, AircraftFamilyId = family8.Id }
+            new AircraftModel { Id = 1, Name = "A320-200", FlightRange = 6100, PassengerCapacity = 180, CargoCapacity = 3.5, AircraftFamilyId = family1.Id, AircraftFamily = family1 },
+            new AircraftModel { Id = 2, Name = "A320neo", FlightRange = 6300, PassengerCapacity = 195, CargoCapacity = 3.8, AircraftFamilyId = family1.Id, AircraftFamily = family1 },
+            new AircraftModel { Id = 3, Name = "737-800", FlightRange = 5765, PassengerCapacity = 189, CargoCapacity = 3.4, AircraftFamilyId = family2.Id, AircraftFamily = family2 },
+            new AircraftModel { Id = 4, Name = "737 MAX 8", FlightRange = 6570, PassengerCapacity = 210, CargoCapacity = 3.7, AircraftFamilyId = family2.Id, AircraftFamily = family2 },
+            new AircraftModel { Id = 5, Name = "A350-900", FlightRange = 15000, PassengerCapacity = 440, CargoCapacity = 12.5, AircraftFamilyId = family3.Id, AircraftFamily = family3 },
+            new AircraftModel { Id = 6, Name = "777-300ER", FlightRange = 13650, PassengerCapacity = 550, CargoCapacity = 14.5, AircraftFamilyId = family4.Id, AircraftFamily = family4 },
+            new AircraftModel { Id = 7, Name = "CRJ-900", FlightRange = 2845, PassengerCapacity = 90, CargoCapacity = 1.8, AircraftFamilyId = family5.Id, AircraftFamily = family5 },
+            new AircraftModel { Id = 8, Name = "E195", FlightRange = 4260, PassengerCapacity = 146, CargoCapacity = 2.5, AircraftFamilyId = family6.Id, AircraftFamily = family6 },
+            new AircraftModel { Id = 9, Name = "A380-800", FlightRange = 15200, PassengerCapacity = 853, CargoCapacity = 18.0, AircraftFamilyId = family7.Id, AircraftFamily = family7 },
+            new AircraftModel { Id = 10, Name = "787-9", FlightRange = 14140, PassengerCapacity = 420, CargoCapacity = 11.0, AircraftFamilyId = family8.Id, AircraftFamily = family8 }
         };
     }
 
@@ -74,106 +74,16 @@ public static class DataGenerator
 
         return new List<Flight>
         {
-            new Flight { 
-                Id = 1, 
-                Code = "SU1001", 
-                DeparturePoint = "Moscow", 
-                ArrivalPoint = "St. Petersburg", 
-                DepartureDate = new DateTime(2024, 1, 15).ToUniversalTime(), 
-                ArrivalDate = new DateTime(2024, 1, 15).ToUniversalTime(), 
-                Duration = new TimeSpan(1, 30, 0), 
-                AircraftModelId = model1.Id
-            },
-            new Flight { 
-                Id = 2, 
-                Code = "SU1002", 
-                DeparturePoint = "Moscow", 
-                ArrivalPoint = "St. Petersburg", 
-                DepartureDate = new DateTime(2024, 1, 15).ToUniversalTime(), 
-                ArrivalDate = new DateTime(2024, 1, 15).ToUniversalTime(), 
-                Duration = new TimeSpan(1, 25, 0), 
-                AircraftModelId = model2.Id 
-            },
-            new Flight { 
-                Id = 3, 
-                Code = "SU2001", 
-                DeparturePoint = "Moscow", 
-                ArrivalPoint = "Sochi", 
-                DepartureDate = new DateTime(2024, 1, 16).ToUniversalTime(), 
-                ArrivalDate = new DateTime(2024, 1, 16).ToUniversalTime(), 
-                Duration = new TimeSpan(2, 30, 0), 
-                AircraftModelId = model3.Id 
-            },
-            new Flight { 
-                Id = 4, 
-                Code = "SU3001", 
-                DeparturePoint = "Moscow", 
-                ArrivalPoint = "New York", 
-                DepartureDate = new DateTime(2024, 1, 17).ToUniversalTime(), 
-                ArrivalDate = new DateTime(2024, 1, 17).ToUniversalTime(), 
-                Duration = new TimeSpan(10, 45, 0), 
-                AircraftModelId = model4.Id 
-            },
-            new Flight { 
-                Id = 5, 
-                Code = "SU4001", 
-                DeparturePoint = "Moscow", 
-                ArrivalPoint = "Tokyo", 
-                DepartureDate = new DateTime(2024, 1, 18).ToUniversalTime(), 
-                ArrivalDate = new DateTime(2024, 1, 18).ToUniversalTime(), 
-                Duration = new TimeSpan(9, 30, 0), 
-                AircraftModelId = model5.Id 
-            },
-            new Flight { 
-                Id = 6, 
-                Code = "SU5001", 
-                DeparturePoint = "St. Petersburg", 
-                ArrivalPoint = "Helsinki", 
-                DepartureDate = new DateTime(2024, 1, 19).ToUniversalTime(), 
-                ArrivalDate = new DateTime(2024, 1, 19).ToUniversalTime(), 
-                Duration = new TimeSpan(1, 0, 0), 
-                AircraftModelId = model6.Id 
-            },
-            new Flight { 
-                Id = 7, 
-                Code = "SU5002", 
-                DeparturePoint = "St. Petersburg", 
-                ArrivalPoint = "Helsinki", 
-                DepartureDate = new DateTime(2024, 1, 19).ToUniversalTime(), 
-                ArrivalDate = new DateTime(2024, 1, 19).ToUniversalTime(), 
-                Duration = new TimeSpan(1, 5, 0), 
-                AircraftModelId = model7.Id 
-            },
-            new Flight { 
-                Id = 8, 
-                Code = "SU6001", 
-                DeparturePoint = "Sochi", 
-                ArrivalPoint = "Moscow", 
-                DepartureDate = new DateTime(2024, 1, 20).ToUniversalTime(), 
-                ArrivalDate = new DateTime(2024, 1, 20).ToUniversalTime(), 
-                Duration = new TimeSpan(2, 25, 0), 
-                AircraftModelId = model8.Id 
-            },
-            new Flight { 
-                Id = 9, 
-                Code = "SU7001", 
-                DeparturePoint = "New York", 
-                ArrivalPoint = "Moscow", 
-                DepartureDate = new DateTime(2024, 1, 21).ToUniversalTime(), 
-                ArrivalDate = new DateTime(2024, 1, 21).ToUniversalTime(), 
-                Duration = new TimeSpan(10, 30, 0), 
-                AircraftModelId = model9.Id 
-            },
-            new Flight { 
-                Id = 10, 
-                Code = "SU8001", 
-                DeparturePoint = "Tokyo", 
-                ArrivalPoint = "Moscow", 
-                DepartureDate = new DateTime(2024, 1, 22).ToUniversalTime(), 
-                ArrivalDate = new DateTime(2024, 1, 22).ToUniversalTime(), 
-                Duration = new TimeSpan(9, 45, 0), 
-                AircraftModelId = model10.Id 
-            }
+           new Flight { Id = 1, Code = "SU1001", DeparturePoint = "Moscow", ArrivalPoint = "St. Petersburg", DepartureDate = new DateTime(2024, 1, 15).ToUniversalTime(), ArrivalDate = new DateTime(2024, 1, 15).ToUniversalTime(), Duration = new TimeSpan(1, 30, 0), AircraftModelId = model1.Id, AircraftModel = model1 },
+            new Flight { Id = 2, Code = "SU1002", DeparturePoint = "Moscow", ArrivalPoint = "St. Petersburg", DepartureDate = new DateTime(2024, 1, 15).ToUniversalTime(), ArrivalDate = new DateTime(2024, 1, 15).ToUniversalTime(), Duration = new TimeSpan(1, 25, 0), AircraftModelId = model2.Id, AircraftModel = model2 },
+            new Flight { Id = 3, Code = "SU2001", DeparturePoint = "Moscow", ArrivalPoint = "Sochi", DepartureDate = new DateTime(2024, 1, 16).ToUniversalTime(), ArrivalDate = new DateTime(2024, 1, 16).ToUniversalTime(), Duration = new TimeSpan(2, 30, 0), AircraftModelId = model3.Id, AircraftModel = model3 },
+            new Flight { Id = 4, Code = "SU3001", DeparturePoint = "Moscow", ArrivalPoint = "New York", DepartureDate = new DateTime(2024, 1, 17).ToUniversalTime(), ArrivalDate = new DateTime(2024, 1, 17).ToUniversalTime(), Duration = new TimeSpan(10, 45, 0), AircraftModelId = model4.Id, AircraftModel = model4 },
+            new Flight { Id = 5, Code = "SU4001", DeparturePoint = "Moscow", ArrivalPoint = "Tokyo", DepartureDate = new DateTime(2024, 1, 18).ToUniversalTime(), ArrivalDate = new DateTime(2024, 1, 18).ToUniversalTime(), Duration = new TimeSpan(9, 30, 0), AircraftModelId = model5.Id, AircraftModel = model5 },
+            new Flight { Id = 6, Code = "SU5001", DeparturePoint = "St. Petersburg", ArrivalPoint = "Helsinki", DepartureDate = new DateTime(2024, 1, 19).ToUniversalTime(), ArrivalDate = new DateTime(2024, 1, 19).ToUniversalTime(), Duration = new TimeSpan(1, 0, 0), AircraftModelId = model6.Id, AircraftModel = model6 },
+            new Flight { Id = 7, Code = "SU5002", DeparturePoint = "St. Petersburg", ArrivalPoint = "Helsinki", DepartureDate = new DateTime(2024, 1, 19).ToUniversalTime(), ArrivalDate = new DateTime(2024, 1, 19).ToUniversalTime(), Duration = new TimeSpan(1, 5, 0), AircraftModelId = model7.Id, AircraftModel = model7 },
+            new Flight { Id = 8, Code = "SU6001", DeparturePoint = "Sochi", ArrivalPoint = "Moscow", DepartureDate = new DateTime(2024, 1, 20).ToUniversalTime(), ArrivalDate = new DateTime(2024, 1, 20).ToUniversalTime(), Duration = new TimeSpan(2, 25, 0), AircraftModelId = model8.Id, AircraftModel = model8 },
+            new Flight { Id = 9, Code = "SU7001", DeparturePoint = "New York", ArrivalPoint = "Moscow", DepartureDate = new DateTime(2024, 1, 21).ToUniversalTime(), ArrivalDate = new DateTime(2024, 1, 21).ToUniversalTime(), Duration = new TimeSpan(10, 30, 0), AircraftModelId = model9.Id, AircraftModel = model9 },
+            new Flight { Id = 10, Code = "SU8001", DeparturePoint = "Tokyo", ArrivalPoint = "Moscow", DepartureDate = new DateTime(2024, 1, 22).ToUniversalTime(), ArrivalDate = new DateTime(2024, 1, 22).ToUniversalTime(), Duration = new TimeSpan(9, 45, 0), AircraftModelId = model10.Id, AircraftModel = model10 }
         };
     }
 
@@ -226,28 +136,28 @@ public static class DataGenerator
 
         return new List<Ticket>
         {
-            new Ticket { Id = 1, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 15.5, FlightId = flight1.Id, PassengerId = passenger1.Id },
-            new Ticket { Id = 2, SeatNumber = "1B", HasHandLuggage = true, LuggageWeight = 12.0, FlightId = flight1.Id, PassengerId = passenger2.Id },
-            new Ticket { Id = 3, SeatNumber = "2A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight1.Id, PassengerId = passenger3.Id },
-            new Ticket { Id = 4, SeatNumber = "2B", HasHandLuggage = true, LuggageWeight = 8.5, FlightId = flight1.Id, PassengerId = passenger4.Id },
-            new Ticket { Id = 5, SeatNumber = "3A", HasHandLuggage = true, LuggageWeight = 10.0, FlightId = flight1.Id, PassengerId = passenger5.Id },
-            new Ticket { Id = 6, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 14.0, FlightId = flight2.Id, PassengerId = passenger6.Id },
-            new Ticket { Id = 7, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight2.Id, PassengerId = passenger7.Id },
-            new Ticket { Id = 8, SeatNumber = "2A", HasHandLuggage = true, LuggageWeight = 9.5, FlightId = flight2.Id, PassengerId = passenger8.Id },
-            new Ticket { Id = 9, SeatNumber = "2B", HasHandLuggage = true, LuggageWeight = 11.0, FlightId = flight2.Id, PassengerId = passenger9.Id },
-            new Ticket { Id = 10, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 16.0, FlightId = flight3.Id, PassengerId = passenger10.Id },
-            new Ticket { Id = 11, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight3.Id, PassengerId = passenger1.Id },
-            new Ticket { Id = 12, SeatNumber = "2A", HasHandLuggage = true, LuggageWeight = 7.5, FlightId = flight3.Id, PassengerId = passenger2.Id },
-            new Ticket { Id = 13, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 20.0, FlightId = flight4.Id, PassengerId = passenger3.Id },
-            new Ticket { Id = 14, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight4.Id, PassengerId = passenger4.Id },
-            new Ticket { Id = 15, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 18.5, FlightId = flight5.Id, PassengerId = passenger5.Id },
-            new Ticket { Id = 16, SeatNumber = "1A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight6.Id, PassengerId = passenger6.Id },
-            new Ticket { Id = 17, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight6.Id, PassengerId = passenger7.Id },
-            new Ticket { Id = 18, SeatNumber = "2A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight6.Id, PassengerId = passenger8.Id },
-            new Ticket { Id = 19, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 13.0, FlightId = flight7.Id, PassengerId = passenger9.Id },
-            new Ticket { Id = 20, SeatNumber = "1B", HasHandLuggage = true, LuggageWeight = 11.5, FlightId = flight8.Id, PassengerId = passenger10.Id },
-            new Ticket { Id = 21, SeatNumber = "1A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight9.Id, PassengerId = passenger1.Id },
-            new Ticket { Id = 22, SeatNumber = "1B", HasHandLuggage = true, LuggageWeight = 15.0, FlightId = flight10.Id, PassengerId = passenger2.Id }
+            new Ticket { Id = 1, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 15.5, FlightId = flight1.Id, Flight = flight1, PassengerId = passenger1.Id, Passenger = passenger1 },
+            new Ticket { Id = 2, SeatNumber = "1B", HasHandLuggage = true, LuggageWeight = 12.0, FlightId = flight1.Id, Flight = flight1, PassengerId = passenger2.Id, Passenger = passenger2 },
+            new Ticket { Id = 3, SeatNumber = "2A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight1.Id, Flight = flight1, PassengerId = passenger3.Id, Passenger = passenger3 },
+            new Ticket { Id = 4, SeatNumber = "2B", HasHandLuggage = true, LuggageWeight = 8.5, FlightId = flight1.Id, Flight = flight1, PassengerId = passenger4.Id, Passenger = passenger4 },
+            new Ticket { Id = 5, SeatNumber = "3A", HasHandLuggage = true, LuggageWeight = 10.0, FlightId = flight1.Id, Flight = flight1, PassengerId = passenger5.Id, Passenger = passenger5 },
+            new Ticket { Id = 6, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 14.0, FlightId = flight2.Id, Flight = flight2, PassengerId = passenger6.Id, Passenger = passenger6 },
+            new Ticket { Id = 7, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight2.Id, Flight = flight2, PassengerId = passenger7.Id, Passenger = passenger7 },
+            new Ticket { Id = 8, SeatNumber = "2A", HasHandLuggage = true, LuggageWeight = 9.5, FlightId = flight2.Id, Flight = flight2, PassengerId = passenger8.Id, Passenger = passenger8 },
+            new Ticket { Id = 9, SeatNumber = "2B", HasHandLuggage = true, LuggageWeight = 11.0, FlightId = flight2.Id, Flight = flight2, PassengerId = passenger9.Id, Passenger = passenger9 },
+            new Ticket { Id = 10, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 16.0, FlightId = flight3.Id, Flight = flight3, PassengerId = passenger10.Id, Passenger = passenger10 },
+            new Ticket { Id = 11, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight3.Id, Flight = flight3, PassengerId = passenger1.Id, Passenger = passenger1 },
+            new Ticket { Id = 12, SeatNumber = "2A", HasHandLuggage = true, LuggageWeight = 7.5, FlightId = flight3.Id, Flight = flight3, PassengerId = passenger2.Id, Passenger = passenger2 },
+            new Ticket { Id = 13, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 20.0, FlightId = flight4.Id, Flight = flight4, PassengerId = passenger3.Id, Passenger = passenger3 },
+            new Ticket { Id = 14, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight4.Id, Flight = flight4, PassengerId = passenger4.Id, Passenger = passenger4 },
+            new Ticket { Id = 15, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 18.5, FlightId = flight5.Id, Flight = flight5, PassengerId = passenger5.Id, Passenger = passenger5 },
+            new Ticket { Id = 16, SeatNumber = "1A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight6.Id, Flight = flight6, PassengerId = passenger6.Id, Passenger = passenger6 },
+            new Ticket { Id = 17, SeatNumber = "1B", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight6.Id, Flight = flight6, PassengerId = passenger7.Id, Passenger = passenger7 },
+            new Ticket { Id = 18, SeatNumber = "2A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight6.Id, Flight = flight6, PassengerId = passenger8.Id, Passenger = passenger8 },
+            new Ticket { Id = 19, SeatNumber = "1A", HasHandLuggage = true, LuggageWeight = 13.0, FlightId = flight7.Id, Flight = flight7, PassengerId = passenger9.Id, Passenger = passenger9 },
+            new Ticket { Id = 20, SeatNumber = "1B", HasHandLuggage = true, LuggageWeight = 11.5, FlightId = flight8.Id, Flight = flight8, PassengerId = passenger10.Id, Passenger = passenger10 },
+            new Ticket { Id = 21, SeatNumber = "1A", HasHandLuggage = false, LuggageWeight = 0, FlightId = flight9.Id, Flight = flight9, PassengerId = passenger1.Id, Passenger = passenger1 },
+            new Ticket { Id = 22, SeatNumber = "1B", HasHandLuggage = true, LuggageWeight = 15.0, FlightId = flight10.Id, Flight = flight10, PassengerId = passenger2.Id, Passenger = passenger2 }
         };
     }
 }

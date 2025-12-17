@@ -24,6 +24,9 @@ public static class DbSeeder
         }
     }
 
+    /// <summary>
+    /// Сидит модели самолётов
+    /// </summary>
     private static async Task SeedAircraftModelsAsync(AppDbContext context)
     {
         if (!context.AircraftModels.Any())
@@ -36,6 +39,9 @@ public static class DbSeeder
         }
     }
 
+    /// <summary>
+    /// Сидит перелёты
+    /// </summary>
     private static async Task SeedFlightsAsync(AppDbContext context)
     {
         if (!context.Flights.Any())
@@ -48,6 +54,9 @@ public static class DbSeeder
         }
     }
 
+    /// <summary>
+    /// Сидит пасажиров
+    /// </summary>
     private static async Task SeedPassengersAsync(AppDbContext context)
     {
         if (!context.Passengers.Any())
@@ -59,6 +68,9 @@ public static class DbSeeder
         }
     }
 
+    /// <summary>
+    /// Сидит билетики
+    /// </summary>
     private static async Task SeedTicketsAsync(AppDbContext context)
     {
         if (!context.Tickets.Any())
@@ -80,7 +92,7 @@ public static class DbSeeder
         try
         {
             await context.Database.ExecuteSqlRawAsync(
-                $"SELECT setval('{sequenceName}', COALESCE((SELECT MAX(id) FROM {tableName}), 1) + 1);"
+                $"SELECT setval('{sequenceName}', COALESCE((SELECT MAX(id) FROM {tableName}), 1));"
             );
         }
         catch (Exception ex)

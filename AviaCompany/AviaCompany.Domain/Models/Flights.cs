@@ -51,7 +51,7 @@ public class Flight
     /// <summary>
     /// Модель самолета
     /// </summary>
-    public AircraftModel? AircraftModel { get; set; }
+    public required AircraftModel AircraftModel { get; set; }
     
     /// <summary>
     /// Билеты на рейс
