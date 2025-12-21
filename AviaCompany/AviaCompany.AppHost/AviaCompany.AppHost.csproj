@@ -9,12 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Kafka" Version="13.1.0" />
     <PackageReference Include="Aspire.Hosting.Redis" Version="13.0.0" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AviaCompany.Api.Host\AviaCompany.Api.Host.csproj" />
+    <ProjectReference Include="..\AviaCompany.Generator.Kafka.Host\AviaCompany.Generator.Kafka.Host.csproj" />
   </ItemGroup>
 
 </Project>

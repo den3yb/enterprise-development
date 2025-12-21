@@ -1,0 +1,6 @@
+@AviaCompany.Generator.Kafka.Host_HostAddress = http://localhost:5181
+
+GET {{AviaCompany.Generator.Kafka.Host_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
