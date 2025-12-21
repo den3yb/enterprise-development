@@ -36,7 +36,6 @@ public class GeneratorController(
             var result = new List<FlightCreateUpdateDto>(payloadLimit);
             var counter = 0;
 
-            // Получаем возможные значения из конфигурации
             var modelIds = configuration.GetSection("FlightGenerator:AircraftModelIds")
                 .Get<int[]>() ?? Array.Empty<int>();
             

@@ -5,12 +5,8 @@ using AviaCompany.Generator.Kafka.Host.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// УДАЛИ builder.AddKafkaProducer - он конфликтует с твоим ручным продюсером!
-// builder.AddKafkaProducer<Guid, IList<FlightCreateUpdateDto>>(...);
-
 builder.AddServiceDefaults();
 
-// Регистрируем ТОЛЬКО твой сервис
 builder.Services.AddScoped<IProducerService, FlightKafkaProducer>();
 
 builder.Services.AddControllers();

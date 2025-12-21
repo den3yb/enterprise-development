@@ -24,6 +24,7 @@
     <ProjectReference Include="..\AviaCompany.Application.Contracts\AviaCompany.Application.Contracts.csproj" />
     <ProjectReference Include="..\AviaCompany.Infrastructure\AviaCompany.Infrastructure.csproj" />
     <ProjectReference Include="..\AviaCompany.ServiceDefaults\AviaCompany.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\AviaCompany.Infrastructure.Kafka\AviaCompany.Infrastructure.Kafka.csproj" />
   </ItemGroup>
 
 </Project>

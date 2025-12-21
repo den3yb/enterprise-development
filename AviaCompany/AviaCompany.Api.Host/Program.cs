@@ -7,7 +7,10 @@ using AviaCompany.Application.Contracts;
 using AviaCompany.Application.Services;
 using AviaCompany.Domain;
 using AviaCompany.Infrastructure;
+using AviaCompany.Infrastructure.Kafka.Deserializers;
+using AviaCompany.Infrastructure.Kafka.Services;
 using AviaCompany.Infrastructure.Repositories;
+using Confluent.Kafka;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,10 +70,35 @@ builder.Services.AddScoped<IApplicationService<TicketDto, TicketCreateUpdateDto,
 /// </summary>
 builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 
+/// <summary>
+/// Регистрация Кафки.
+/// </summary>
+builder.Services.AddSingleton<IConsumer<Guid, IList<FlightCreateUpdateDto>>>(sp =>
+{
+    var configuration = sp.GetRequiredService<IConfiguration>();
+    var bootstrapServers = (configuration["KAFKA_BOOTSTRAP_SERVERS"] ?? "localhost:9092")
+        .Replace("tcp://", "");
+    
+    var config = new ConsumerConfig
+    {
+        BootstrapServers = bootstrapServers,
+        GroupId = "flight-consumer-group",
+        AutoOffsetReset = AutoOffsetReset.Earliest,
+        EnableAutoCommit = true
+    };
+
+    return new ConsumerBuilder<Guid, IList<FlightCreateUpdateDto>>(config)
+        .SetKeyDeserializer(new FlightKeyDeserializer())
+        .SetValueDeserializer(new FlightValueDeserializer())
+        .Build();
+});
+
+builder.Services.AddHostedService<FlightKafkaConsumer>();
+
 var app = builder.Build();
 
 /// <summary>
-/// Применение миграций базы данных с механизмом повторных попыток и инициализация тестовых данных.
+/// Применение миграций базы данных и тестовых данных.
 /// </summary>
 using (var scope = app.Services.CreateScope())
 {
@@ -79,7 +107,6 @@ using (var scope = app.Services.CreateScope())
 
     await context.Database.MigrateAsync(); 
     await DbSeeder.SeedAllAsync(context);
-
 }
 
 /// <summary>

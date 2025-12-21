@@ -1,3 +1,4 @@
+//https://localhost:7084/api/generator?batchSize=3&payloadLimit=6&waitTime=2
 using AviaCompany.Application.Contracts;
 using AviaCompany.Generator.Kafka.Host.Interfaces;
 using AviaCompany.Generator.Kafka.Host.Serializers;
@@ -9,6 +10,9 @@ using Polly.Retry;
 
 namespace AviaCompany.Generator.Kafka.Host.Services;
 
+/// <summary>
+/// Реализация продюсера Kafka для отправки рейсов в потоковом режиме с поддержкой ретраев при подключении
+/// </summary>
 public class FlightKafkaProducer(
     IConfiguration configuration,
     ILogger<FlightKafkaProducer> logger
@@ -30,6 +34,9 @@ public class FlightKafkaProducer(
                 logger.LogWarning("Попытка {retryCount} подключения к Kafka не удалась. Повтор через {timespan}", retryCount, timespan);
             });
 
+    /// <summary>
+    /// Получает или создаёт экземпляр Kafka Producer с ленивой инициализацией и автоматическими повторными попытками подключения
+    /// </summary>
     private async Task<IProducer<Guid, IList<FlightCreateUpdateDto>>> GetProducerAsync()
     {
         if (_producer == null)
@@ -56,6 +63,9 @@ public class FlightKafkaProducer(
         return _producer;
     }
 
+    /// <summary>
+    /// Асинхронно отправляет пакет рейсов в указанный Kafka топик с логированием и обработкой ошибок
+    /// </summary>
     public async Task SendAsync(IList<FlightCreateUpdateDto> batch)
     {
         try
