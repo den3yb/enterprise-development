@@ -4,14 +4,15 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Confluent.Kafka" Version="9.5.2" />
     <PackageReference Include="Aspire.Hosting.Kafka" Version="8.2.2" />
+    <PackageReference Include="Confluent.Kafka" Version="2.5.3" /> 
     <PackageReference Include="Bogus" Version="35.6.5" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+    <PackageReference Include="Polly" Version="8.4.0" />
   </ItemGroup>
 
   <ItemGroup>
