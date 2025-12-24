@@ -22,6 +22,8 @@ public class FlightKafkaProducer(
         .Replace("tcp://", "");
     private readonly string _topicName = configuration["Kafka:TopicName"] ?? "flights-topic";
     private IProducer<Guid, IList<FlightCreateUpdateDto>>? _producer;
+    private readonly object _lock = new();
+    private volatile bool _isInitialized = false;
 
     private readonly AsyncRetryPolicy _retryPolicy = Policy
         .Handle<KafkaException>()
@@ -35,32 +37,41 @@ public class FlightKafkaProducer(
             });
 
     /// <summary>
-    /// Получает или создаёт экземпляр Kafka Producer с ленивой инициализацией и автоматическими повторными попытками подключения
+    /// Асинхронно инициализирует Kafka Producer с ретраями
     /// </summary>
-    private async Task<IProducer<Guid, IList<FlightCreateUpdateDto>>> GetProducerAsync()
+    private async Task EnsureProducerInitializedAsync()
     {
-        if (_producer == null)
+        if (_isInitialized)
+            return;
+
+        lock (_lock)
         {
-            await _retryPolicy.ExecuteAsync(() =>
-            {
-                var config = new ProducerConfig
-                {
-                    BootstrapServers = _bootstrapServers,
-                    ApiVersionRequest = false,
-                    MessageTimeoutMs = 10000,
-                    RequestTimeoutMs = 5000
-                };
-
-                _producer = new ProducerBuilder<Guid, IList<FlightCreateUpdateDto>>(config)
-                    .SetKeySerializer(new FlightKeySerializer())
-                    .SetValueSerializer(new FlightValueSerializer())
-                    .Build();
-
-                return Task.CompletedTask;
-            });
+            if (_isInitialized)
+                return;
         }
 
-        return _producer;
+        await _retryPolicy.ExecuteAsync(async () =>
+        {
+            var config = new ProducerConfig
+            {
+                BootstrapServers = _bootstrapServers,
+                ApiVersionRequest = false,
+                MessageTimeoutMs = 10000,
+                RequestTimeoutMs = 5000
+            };
+
+            _producer = new ProducerBuilder<Guid, IList<FlightCreateUpdateDto>>(config)
+                .SetKeySerializer(new FlightKeySerializer())
+                .SetValueSerializer(new FlightValueSerializer())
+                .Build();
+        });
+
+        if (_producer == null)
+        {
+            throw new InvalidOperationException("Не удалось инициализировать Kafka Producer после всех попыток подключения.");
+        }
+
+        _isInitialized = true;
     }
 
     /// <summary>
@@ -68,24 +79,25 @@ public class FlightKafkaProducer(
     /// </summary>
     public async Task SendAsync(IList<FlightCreateUpdateDto> batch)
     {
+        await EnsureProducerInitializedAsync();
+
         try
         {
             logger.LogInformation("Отправка пакета из {count} рейсов в топик {topic}", batch.Count, _topicName);
-            
-            var producer = await GetProducerAsync();
+
             var message = new Message<Guid, IList<FlightCreateUpdateDto>>
             {
                 Key = Guid.NewGuid(),
                 Value = batch
             };
 
-            var result = await producer.ProduceAsync(_topicName, message);
-            logger.LogInformation("Сообщение доставлено в {partition} с offset {offset}", 
+            var result = await _producer!.ProduceAsync(_topicName, message);
+            logger.LogInformation("Сообщение доставлено в {partition} с offset {offset}",
                 result.TopicPartition, result.Offset);
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Ошибка при отправке пакета из {count} рейсов в топик {topic}", 
+            logger.LogError(ex, "Ошибка при отправке пакета из {count} рейсов в топик {topic}",
                 batch.Count, _topicName);
             throw;
         }
