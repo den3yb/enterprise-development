@@ -40,7 +40,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
 
             builder.HasKey(am => am.Id);
 
-            builder.Property(am => am.Id).HasColumnName("id");
+            builder.Property(am => am.Id).HasColumnName("id").UseIdentityColumn();
             builder.Property(am => am.Name).IsRequired().HasMaxLength(100).HasColumnName("name");
             builder.Property(am => am.FlightRange).HasColumnName("flight_range");
             builder.Property(am => am.PassengerCapacity).HasColumnName("passenger_capacity");
@@ -59,7 +59,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
 
             builder.HasKey(f => f.Id);
 
-            builder.Property(f => f.Id).HasColumnName("id");
+            builder.Property(f => f.Id).HasColumnName("id").UseIdentityColumn();
             builder.Property(f => f.Code).IsRequired().HasMaxLength(20).HasColumnName("code");
             builder.Property(f => f.DeparturePoint).IsRequired().HasMaxLength(100).HasColumnName("departure_point");
             builder.Property(f => f.ArrivalPoint).IsRequired().HasMaxLength(100).HasColumnName("arrival_point");
@@ -80,7 +80,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
 
             builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.Id).HasColumnName("id");
+            builder.Property(p => p.Id).HasColumnName("id").UseIdentityColumn();
             builder.Property(p => p.PassportNumber).IsRequired().HasMaxLength(20).HasColumnName("passport_number");
             builder.Property(p => p.FullName).IsRequired().HasMaxLength(200).HasColumnName("full_name");
             builder.Property(p => p.BirthDate).HasColumnName("birth_date");
@@ -92,7 +92,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
 
             builder.HasKey(t => t.Id);
 
-            builder.Property(t => t.Id).HasColumnName("id");
+            builder.Property(t => t.Id).HasColumnName("id").UseIdentityColumn();
             builder.Property(t => t.SeatNumber).IsRequired().HasMaxLength(10).HasColumnName("seat_number");
             builder.Property(t => t.HasHandLuggage).HasColumnName("has_hand_luggage");
             builder.Property(t => t.LuggageWeight).HasColumnName("luggage_weight");
