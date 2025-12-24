@@ -55,9 +55,14 @@ public class FlightKafkaProducer(
                     .SetValueSerializer(new FlightValueSerializer())
                     .Build();
             });
+
+            if (_producer == null)
+            {
+                throw new InvalidOperationException("Failed to initialize Kafka producer");
+            }
         }
-        
-        return _producer;
+
+        return _producer; 
     }
 
     /// <summary>
