@@ -85,10 +85,37 @@ public static class DbSeeder
     }
 
     /// <summary>
+    /// Проверяет, является ли строка допустимым идентификатором PostgreSQL
+    /// </summary>
+    private static bool IsValidIdentifier(string identifier)
+    {
+        if (string.IsNullOrWhiteSpace(identifier))
+            return false;
+
+        if (!char.IsLetter(identifier[0]) && identifier[0] != '_')
+            return false;
+
+        for (int i = 0; i < identifier.Length; i++)
+        {
+            char c = identifier[i];
+            if (!char.IsLetterOrDigit(c) && c != '_')
+                return false;
+        }
+
+        return true;
+    }
+
+    /// <summary>
     /// Сбрасывает последовательность для автоинкремента ID после вставки сидов
     /// </summary>
     private static async Task ResetSequenceAsync(AppDbContext context, string sequenceName, string tableName)
     {
+        // Санитизация имен таблиц и последовательностей
+        if (!IsValidIdentifier(sequenceName) || !IsValidIdentifier(tableName))
+        {
+            throw new ArgumentException($"Недопустимое имя последовательности или таблицы: {sequenceName}, {tableName}");
+        }
+
         try
         {
             await context.Database.ExecuteSqlRawAsync(
