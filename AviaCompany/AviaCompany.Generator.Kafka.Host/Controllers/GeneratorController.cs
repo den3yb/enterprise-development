@@ -1,8 +1,10 @@
 using AviaCompany.Application.Contracts;
 using AviaCompany.Generator.Kafka.Host.Generator;
 using AviaCompany.Generator.Kafka.Host.Interfaces;
+using AviaCompany.Generator.Kafka.Host.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace AviaCompany.Generator.Kafka.Host.Controllers;
 
@@ -14,9 +16,11 @@ namespace AviaCompany.Generator.Kafka.Host.Controllers;
 public class GeneratorController(
     ILogger<GeneratorController> logger,
     IProducerService producerService,
-    IConfiguration configuration
+    IOptions<FlightGeneratorOptions> options
 ) : ControllerBase
 {
+    private readonly FlightGeneratorOptions _options = options.Value;
+
     /// <summary>
     /// Генерирует рейсы и отправляет их в Kafka партиями
     /// </summary>
@@ -24,41 +28,38 @@ public class GeneratorController(
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<List<FlightCreateUpdateDto>>> Get(
-        [FromQuery] int batchSize = 10,
-        [FromQuery] int payloadLimit = 100,
-        [FromQuery] int waitTime = 1)
+        [FromQuery] int batchSize = 0,
+        [FromQuery] int payloadLimit = 0,
+        [FromQuery] int waitTime = 0)
     {
+        // Если параметры переданы через query, используем их, иначе — значения по умолчанию из конфигурации
+        var actualBatchSize = batchSize > 0 ? batchSize : _options.BatchSize;
+        var actualPayloadLimit = payloadLimit > 0 ? payloadLimit : _options.PayloadLimit;
+        var actualWaitTime = waitTime > 0 ? waitTime : _options.WaitTime;
+
         logger.LogInformation("Запрос генерации {limit} рейсов партиями по {batchSize} с задержкой {waitTime}с", 
-            payloadLimit, batchSize, waitTime);
+            actualPayloadLimit, actualBatchSize, actualWaitTime);
 
         try
         {
-            var result = new List<FlightCreateUpdateDto>(payloadLimit);
+            var result = new List<FlightCreateUpdateDto>(actualPayloadLimit);
             var counter = 0;
 
-            var modelIds = configuration.GetSection("FlightGenerator:AircraftModelIds")
-                .Get<int[]>() ?? Array.Empty<int>();
-            
-            var departurePoints = configuration.GetSection("FlightGenerator:DeparturePoints")
-                .Get<string[]>() ?? Array.Empty<string>();
-            
-            var arrivalPoints = configuration.GetSection("FlightGenerator:ArrivalPoints")
-                .Get<string[]>() ?? Array.Empty<string>();
-
-            if (modelIds.Length == 0 || departurePoints.Length == 0 || arrivalPoints.Length == 0)
+            // Проверяем, что данные для генерации не пустые
+            if (_options.AircraftModelIds.Length == 0 || _options.DeparturePoints.Length == 0 || _options.ArrivalPoints.Length == 0)
             {
                 logger.LogError("Ошибка конфигурации: отсутствуют AircraftModelIds, DeparturePoints или ArrivalPoints");
                 return StatusCode(500, "Ошибка конфигурации: отсутствуют необходимые данные для генерации рейсов");
             }
 
-            while (counter < payloadLimit)
+            while (counter < actualPayloadLimit)
             {
-                var currentBatchSize = Math.Min(batchSize, payloadLimit - counter);
+                var currentBatchSize = Math.Min(actualBatchSize, actualPayloadLimit - counter);
                 var batch = ContractGenerator.GenerateFlights(
                     currentBatchSize, 
-                    modelIds, 
-                    departurePoints, 
-                    arrivalPoints
+                    _options.AircraftModelIds, 
+                    _options.DeparturePoints, 
+                    _options.ArrivalPoints
                 );
 
                 await producerService.SendAsync(batch);
@@ -67,10 +68,10 @@ public class GeneratorController(
                 counter += currentBatchSize;
                 result.AddRange(batch);
 
-                if (counter < payloadLimit && waitTime > 0)
+                if (counter < actualPayloadLimit && actualWaitTime > 0)
                 {
-                    logger.LogInformation("Ожидание {waitTime}с перед следующей партией", waitTime);
-                    await Task.Delay(waitTime * 1000);
+                    logger.LogInformation("Ожидание {waitTime}с перед следующей партией", actualWaitTime);
+                    await Task.Delay(actualWaitTime * 1000);
                 }
             }
 
