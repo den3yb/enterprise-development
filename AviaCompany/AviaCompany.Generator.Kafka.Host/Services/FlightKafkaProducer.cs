@@ -17,17 +17,12 @@ public class FlightKafkaProducer(
     ILogger<FlightKafkaProducer> logger
 ) : IProducerService
 {
-    private readonly string _bootstrapServers = (configuration["KAFKA_BOOTSTRAP_SERVERS"] ?? "localhost:9092")
-        .Replace("tcp://", "");
+    private readonly string _bootstrapServers = configuration.GetConnectionString("avia-kafka") ?? "localhost:9092";
     private readonly string _topicName = configuration["Kafka:TopicName"] ?? "flights-topic";
     
-    // Создаём продюсер при инициализации класса с ретраями
-    private readonly IProducer<Guid, IList<FlightCreateUpdateDto>> _producer = CreateProducerWithRetries(
-        configuration, 
-        logger
-    );
+    private IProducer<Guid, IList<FlightCreateUpdateDto>>? _producer;
 
-    private static readonly AsyncRetryPolicy _retryPolicy = Policy
+    private readonly AsyncRetryPolicy _retryPolicy = Policy
         .Handle<KafkaException>()
         .Or<Exception>()
         .WaitAndRetryAsync(
@@ -35,45 +30,34 @@ public class FlightKafkaProducer(
             sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
             onRetry: (outcome, timespan, retryCount, context) =>
             {
-                // Нужно создать логгер отдельно, потому что static метод не может использовать this.logger
+                logger.LogWarning("Попытка {retryCount} подключения к Kafka не удалась. Повтор через {timespan}", retryCount, timespan);
             });
 
     /// <summary>
-    /// Создаёт экземпляр Kafka продюсера с правильной конфигурацией и ретраями
+    /// Получает или создает экземпляр Kafka продюсера с ретраями
     /// </summary>
-    private static IProducer<Guid, IList<FlightCreateUpdateDto>> CreateProducerWithRetries(
-        IConfiguration configuration, 
-        ILogger<FlightKafkaProducer> logger)
+    private async Task<IProducer<Guid, IList<FlightCreateUpdateDto>>> GetProducerAsync()
     {
-        var bootstrapServers = (configuration["KAFKA_BOOTSTRAP_SERVERS"] ?? "localhost:9092")
-            .Replace("tcp://", "");
-            
-        var retryPolicy = Policy
-            .Handle<KafkaException>()
-            .Or<Exception>()
-            .WaitAndRetry(
-                retryCount: 5,
-                sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
-                onRetry: (outcome, timespan, retryCount, context) =>
-                {
-                    logger.LogWarning("Попытка {retryCount} подключения к Kafka не удалась. Повтор через {timespan}", retryCount, timespan);
-                });
-
-        return retryPolicy.Execute(() =>
+        if (_producer == null)
         {
-            var config = new ProducerConfig
+            await _retryPolicy.ExecuteAsync(async () =>
             {
-                BootstrapServers = bootstrapServers,
-                ApiVersionRequest = false,
-                MessageTimeoutMs = 10000,
-                RequestTimeoutMs = 5000
-            };
+                var config = new ProducerConfig
+                {
+                    BootstrapServers = _bootstrapServers,
+                    ApiVersionRequest = false,
+                    MessageTimeoutMs = 10000,
+                    RequestTimeoutMs = 5000
+                };
 
-            return new ProducerBuilder<Guid, IList<FlightCreateUpdateDto>>(config)
-                .SetKeySerializer(new FlightKeySerializer())
-                .SetValueSerializer(new FlightValueSerializer())
-                .Build();
-        });
+                _producer = new ProducerBuilder<Guid, IList<FlightCreateUpdateDto>>(config)
+                    .SetKeySerializer(new FlightKeySerializer())
+                    .SetValueSerializer(new FlightValueSerializer())
+                    .Build();
+            });
+        }
+        
+        return _producer;
     }
 
     /// <summary>
@@ -85,13 +69,14 @@ public class FlightKafkaProducer(
         {
             logger.LogInformation("Отправка пакета из {count} рейсов в топик {topic}", batch.Count, _topicName);
             
+            var producer = await GetProducerAsync();
             var message = new Message<Guid, IList<FlightCreateUpdateDto>>
             {
                 Key = Guid.NewGuid(),
                 Value = batch
             };
 
-            var result = await _producer.ProduceAsync(_topicName, message);
+            var result = await producer.ProduceAsync(_topicName, message);
             logger.LogInformation("Сообщение доставлено в {partition} с offset {offset}", 
                 result.TopicPartition, result.Offset);
         }

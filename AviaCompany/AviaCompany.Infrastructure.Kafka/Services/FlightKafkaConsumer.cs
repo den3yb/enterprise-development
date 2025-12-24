@@ -17,16 +17,14 @@ public sealed class FlightKafkaConsumer(
     ILogger<FlightKafkaConsumer> logger
 ) : BackgroundService
 {
-    private readonly string _topicName =
-        configuration["Kafka:TopicName"] ?? throw new KeyNotFoundException("Kafka:TopicName is missing");
+    private readonly string _topicName = configuration["Kafka:TopicName"] ?? "flights-topic";
 
     /// <summary>
     /// Выполняет цикл потребления сообщений с автоматическим переподключением и обработкой недоступности топика
     /// </summary>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var bootstrapServers = (configuration["KAFKA_BOOTSTRAP_SERVERS"] ?? "localhost:9092")
-            .Replace("tcp://", "");
+        var bootstrapServers = configuration.GetConnectionString("avia-kafka") ?? "localhost:9092";
         
         logger.LogInformation("Kafka bootstrap servers: {bootstrapServers}", bootstrapServers);
         logger.LogInformation("Kafka topic name: {topicName}", _topicName);

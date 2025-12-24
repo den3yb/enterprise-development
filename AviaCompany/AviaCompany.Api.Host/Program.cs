@@ -76,8 +76,7 @@ builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 builder.Services.AddSingleton<IConsumer<Guid, IList<FlightCreateUpdateDto>>>(sp =>
 {
     var configuration = sp.GetRequiredService<IConfiguration>();
-    var bootstrapServers = (configuration["KAFKA_BOOTSTRAP_SERVERS"] ?? "localhost:9092")
-        .Replace("tcp://", "");
+    var bootstrapServers = configuration.GetConnectionString("avia-kafka") ?? "localhost:9092";
     
     var config = new ConsumerConfig
     {
